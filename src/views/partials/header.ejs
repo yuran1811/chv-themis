@@ -1,0 +1,53 @@
+<header class="p-3 bg-dark text-white">
+	<div class="container">
+		<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start" >
+			<a href="/" class="d-flex align-items-center mb-2 mb-lg-0 px-4 text-white text-decoration-none">
+				<img src="/img/logo_100x100.png" alt="Logo" width="50" height="50">
+			</a>
+
+			<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+				<li>
+					<a href="/" class="nav-link px-2 text-<%
+						if (navStatus == 'home')
+							{ %>white<% }
+						else
+							{ %>secondary<% }
+					%>"> Home </a>
+				</li>
+				<li>
+					<a href="/about" class="nav-link px-2 text-<%
+						if (navStatus == 'about')
+							{ %>white<% }
+						else
+							{ %>secondary<% }
+					%>"> About </a>
+				</li>
+				<li>
+					<a href="/ranking" class="nav-link px-2 text-<%
+						if (navStatus == 'ranking')
+							{ %>white<% }
+						else
+							{ %>secondary<% }
+					%>"> Ranking </a>
+				</li>
+				<li>
+					<a href="/problems/list" class="nav-link px-2 text-<%
+						if (navStatus == 'problems')
+							{ %>white<% }
+						else
+							{ %>secondary<% }
+					%>"> Problems </a>
+				</li>
+			</ul>
+
+			<% if (!isAuth) { %>
+				<div class="sign-in-container text-end">
+					<input type="checkbox" class="btn me-2 sign-in-btn"> Sign in </input>
+					<%- include('./sign-in') %>
+				</div>
+			<% } else {	%>
+				<%- include('./submit') %>
+			<% } %>
+		</div>
+	</div>
+</header>

@@ -1,0 +1,15 @@
+<form
+	method="POST"
+	action="/problems/submit/<%= user %>"
+	enctype="multipart/form-data"
+>
+	<input
+		type="file"
+		name="submissions"
+		class="form-control-file file-upload"
+		placeholder="Select file"
+		accept=".cpp, .c, .pas"
+		multiple
+	/>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>

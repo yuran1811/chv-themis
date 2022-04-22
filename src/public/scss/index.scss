@@ -1,0 +1,160 @@
+@import 'variables';
+@import 'config';
+
+.link-hl {
+	position: relative;
+	z-index: 1;
+	padding: 1rem;
+	display: inline-block;
+	&:hover::before {
+		height: 100%;
+	}
+	&::before {
+		content: '';
+		position: absolute;
+		height: 0.5rem;
+		top: unset;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: -1;
+		transition: all 0.3s ease;
+	}
+}
+
+#app {
+	position: relative;
+	width: 100%;
+	&,
+	* {
+		font-size: 1.8rem;
+		transition: all 0.3s ease;
+	}
+
+	.bi {
+		font-size: 2.5rem;
+	}
+
+	header {
+		position: relative;
+
+		.sign-in-container {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			.sign-in-btn {
+				border: 0.4rem solid $text-color;
+
+				&:checked + .form-signin {
+					display: flex;
+				}
+			}
+			.form-signin {
+				position: absolute;
+				display: none;
+				align-items: center;
+				justify-content: center;
+				width: 18rem;
+				top: 4rem;
+				right: 0;
+				z-index: 10;
+			}
+		}
+	}
+
+	main {
+		position: relative;
+		width: 100%;
+
+		.problem-container {
+			position: relative;
+
+			ul {
+				position: relative;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				li {
+					position: relative;
+					border-radius: 1rem;
+					width: 15rem;
+					height: 5rem;
+					margin: 1rem;
+					border: 0.3rem solid transparent;
+					border-bottom-color: $problem-item-border;
+					&:hover {
+						border-color: $problem-item-border;
+					}
+
+					a {
+						position: absolute;
+						top: 0;
+						left: 0;
+						right: 0;
+						bottom: 0;
+						text-align: center;
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
+						padding: 1rem;
+					}
+				}
+			}
+		}
+
+		.about-container {
+			padding: 4rem;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+			* {
+				text-align: center;
+			}
+
+			.title {
+				font-weight: bold;
+				font-size: 3.5rem;
+				letter-spacing: 0.3rem;
+			}
+
+			.link-hl {
+				font-weight: bold;
+				color: transparent;
+				background-clip: text;
+				-webkit-background-clip: text;
+				background-image: $grdi3;
+				transition: all 0.3s ease;
+				&:hover {
+					color: white;
+				}
+				&::before {
+					background-image: $grdi3;
+				}
+			}
+
+			p {
+				margin: 0.5rem;
+			}
+
+			.socials {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+
+				li {
+					margin: 0 1rem;
+
+					i {
+						font-size: 3.3rem;
+					}
+				}
+			}
+		}
+	}
+}
