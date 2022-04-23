@@ -12,11 +12,11 @@ const storage = multer.diskStorage({
 		cb(null, SUBMISSIONS_DIR);
 	},
 	filename: (req, file, cb) => {
-		file.originalname.replace('.cpp', '');
+		file.newFileName = file.originalname.replace('.cpp', '');
 		cb(null, utils.cvertSubmissionName(req, file));
 	},
 });
 
-const fileUpload = multer({ storage });
+const fileUpload = multer({ storage: storage });
 
 export default fileUpload;

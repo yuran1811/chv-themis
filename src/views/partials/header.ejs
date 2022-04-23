@@ -40,14 +40,18 @@
 				</li>
 			</ul>
 
-			<% if (!isAuth) { %>
-				<div class="sign-in-container text-end">
-					<input type="checkbox" class="btn me-2 sign-in-btn"> Sign in </input>
-					<%- include('./sign-in') %>
-				</div>
-			<% } else {	%>
-				<%- include('./submit') %>
-			<% } %>
+			<%
+				if (isAuth == "0") { %>
+					<div class="sign-in-container text-end">
+						<input type="checkbox" class="btn me-2 sign-in-btn"> Sign In </input>
+						<%- include('./sign-in') %>
+					</div>
+				<% }
+			
+				if (isAuth == "1") { %>
+					<%- include('./submit') %>
+				<% }
+			%>
 		</div>
 	</div>
 </header>

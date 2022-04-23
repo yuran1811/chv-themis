@@ -11,4 +11,4 @@ export const PROBLEMS_DIR =
 export const SUBMISSIONS_DIR =
 	process.env.SUBMISSIONS_DIR || resolve(__dirname, '../resources/uploads');
 export const RANKING_DIR =
-	process.env.RANKING_DIR || resolve(__dirname, '../resources/ranking.xlsx');
+	process.env.RANKING_DIR || resolve(__dirname, '../resources/_rankings');

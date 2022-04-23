@@ -6,17 +6,18 @@ class UsersController {
 		const accounts = getUserAccounts();
 		const { name, pass } = req.body;
 		const isAuth = accounts.some((_) => _.name === name && _.pass === pass);
+		const expireTime = getMs('6:00:00');
 
 		if (isAuth) {
 			res.cookie('isAuth', 1, {
-				expires: getMs('6:00:00'),
+				expires: expireTime,
 			});
 			res.cookie('user', name, {
-				expires: getMs('6:00:00'),
+				expires: expireTime,
 			});
 		} else {
 			res.cookie('isAuth', 0);
-			res.cookie('user', '');
+			res.cookie('user', 'null');
 		}
 		res.redirect('/');
 	}
