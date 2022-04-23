@@ -43,7 +43,8 @@
 			<%
 				if (isAuth == "0") { %>
 					<div class="sign-in-container text-end">
-						<input type="checkbox" class="btn me-2 sign-in-btn"> Sign In </input>
+						<label for="sign-in-inp" class="sign-in-btn"> Sign In </label>
+						<input id="sign-in-inp" type="checkbox" class="btn me-2"></input>
 						<%- include('./sign-in') %>
 					</div>
 				<% }

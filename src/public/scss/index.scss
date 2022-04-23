@@ -38,6 +38,22 @@
 	header {
 		position: relative;
 
+		.nav-link {
+			&.text-white {
+				position: relative;
+				&::after {
+					content: '';
+					position: absolute;
+					bottom: 0.5rem;
+					height: 0.2rem;
+					width: 90%;
+					left: 50%;
+					transform: translateX(-50%);
+					background-color: white;
+				}
+			}
+		}
+
 		.sign-in-container {
 			position: relative;
 			display: flex;
@@ -45,7 +61,23 @@
 			justify-content: center;
 
 			.sign-in-btn {
+				cursor: pointer;
+				font-weight: bold;
+				margin: 0.5rem;
+				padding: 0.7rem;
+				color: white;
+				border-radius: 1rem;
+				border: 0.2rem solid white;
+				background-color: rgb(33, 37, 41);
+
+				&:hover {
+					background-color: white;
+					color: rgb(33, 37, 41);
+				}
+			}
+			#sign-in-inp {
 				border: 0.4rem solid $text-color;
+				display: none;
 
 				&:checked + .form-signin {
 					display: flex;
@@ -57,10 +89,24 @@
 				align-items: center;
 				justify-content: center;
 				width: 18rem;
-				top: 4rem;
-				right: 0;
+				top: 5.5rem;
 				z-index: 10;
+
+				form {
+					display: flex;
+					align-items: center;
+					flex-direction: column;
+					justify-content: center;
+
+					input {
+						padding: 1rem;
+						margin: 0.2rem;
+					}
+				}
 			}
+		}
+		.submit-form {
+			margin: 0.5rem;
 		}
 	}
 
@@ -142,6 +188,7 @@
 			}
 
 			.socials {
+				padding: 0;
 				display: flex;
 				flex-direction: row;
 				align-items: center;

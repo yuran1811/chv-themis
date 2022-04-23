@@ -6,15 +6,11 @@ class UsersController {
 		const accounts = getUserAccounts();
 		const { name, pass } = req.body;
 		const isAuth = accounts.some((_) => _.name === name && _.pass === pass);
-		const expireTime = getMs('6:00:00');
+		const maxAge = getMs('00:01:00');
 
 		if (isAuth) {
-			res.cookie('isAuth', 1, {
-				expires: expireTime,
-			});
-			res.cookie('user', name, {
-				expires: expireTime,
-			});
+			res.cookie('isAuth', 1, { maxAge });
+			res.cookie('user', name, { maxAge });
 		} else {
 			res.cookie('isAuth', 0);
 			res.cookie('user', 'null');

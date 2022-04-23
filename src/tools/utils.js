@@ -20,11 +20,12 @@ export const getDate = () => new Date().getDate();
 
 export const getMs = (time) => {
 	const [h, m, s] = time.split(':');
-	return new Date(Date.now() + (h * 60 * 60 + m * 60 + s) * 1000);
+	return (+h * 60 * 60 + +m * 60 + +s) * 1000;
 };
 
 export const getAuthStatus = (req) =>
 	cookieParser.JSONCookies(req.cookies.isAuth || 0) || 0;
+
 export const getAuthUser = (req) =>
 	cookieParser.JSONCookies(req.cookies.user || '') || 'null';
 
