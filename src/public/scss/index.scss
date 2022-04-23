@@ -203,5 +203,68 @@
 				}
 			}
 		}
+
+		.ranking-table {
+			position: relative;
+			width: 100vw;
+			height: 20rem;
+			margin: 1rem;
+
+			.scores-table {
+				position: absolute;
+				top: 0;
+				left: 15rem;
+				width: calc(100% - 30rem);
+				overflow: auto hidden;
+			}
+			table {
+				&.users-table {
+					position: absolute;
+					top: 0;
+					left: 0;
+					background-color: white;
+					padding: 1rem;
+					width: 12rem;
+
+					thead,
+					tbody {
+						width: 8rem;
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
+
+						tr {
+							th {
+								padding: 0.5rem;
+								margin: 0.5rem;
+							}
+						}
+					}
+				}
+				&.total-table {
+					position: absolute;
+					top: 0;
+					right: 0;
+					background-color: white;
+					padding: 1rem;
+					width: 12rem;
+
+					thead,
+					tbody {
+						width: 8rem;
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
+
+						tr {
+							th {
+								padding: 0.5rem;
+								margin: 0.5rem;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }

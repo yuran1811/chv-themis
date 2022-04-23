@@ -3,6 +3,6 @@ import AdminController from '../controllers/AdminController.js';
 
 const router = Router();
 
-router.get('/', AdminController.admin);
+router.get('/dashboard', AdminController.admin);
 
 export default router;

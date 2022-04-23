@@ -1,0 +1,58 @@
+<div class="ranking-table">
+	<table class="users-table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% status.forEach((_, idx) => { %>
+			<tr>
+				<th scope="row"><%= idx + 1 %></th>
+				<th scope="row"><%= _.name %></th>
+			</tr>
+			<% }) %>
+		</tbody>
+	</table>
+
+	<div class="scores-table">
+		<table class="table">
+			<thead>
+				<tr>
+					<% tasks.forEach((_) => { %>
+					<th scope="col"><%= _ %></th>
+					<% }) %>
+					<th scope="col">Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% status.forEach((_, idx) => { %>
+				<tr>
+					<% _.list.forEach((score) => { %>
+					<td><%= score %></td>
+					<% }) %> <% for (var i = _.list.length; i < tasks.length;
+					i++) { %>
+					<td>0</td>
+					<% } %>
+				</tr>
+				<% }) %>
+			</tbody>
+		</table>
+	</div>
+
+	<table class="total-table">
+		<thead>
+			<tr>
+				<th scope="col">Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% status.forEach((_, idx) => { %>
+			<tr>
+				<th scope="row"><%= _.list[_.list.length - 1] %></th>
+			</tr>
+			<% }) %>
+		</tbody>
+	</table>
+</div>

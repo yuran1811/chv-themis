@@ -12,3 +12,5 @@ export const SUBMISSIONS_DIR =
 	process.env.SUBMISSIONS_DIR || resolve(__dirname, '../resources/uploads');
 export const RANKING_DIR =
 	process.env.RANKING_DIR || resolve(__dirname, '../resources/_rankings');
+export const TASKS_DIR =
+	process.env.TASKS_DIR || resolve(__dirname, '../resources/tasks');

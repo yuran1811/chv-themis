@@ -1,3 +1,4 @@
+// import chokidar from 'chokidar';
 import cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
 import * as fs from 'fs';
@@ -7,25 +8,25 @@ import * as XLSX from 'xlsx/xlsx.mjs';
 import _fs from './fsHandles.js';
 import * as THEMIS_DIR from './getDirs.js';
 
-config();
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const { PROBLEMS_DIR, RANKING_DIR, TASKS_DIR } = THEMIS_DIR;
+// const watcher = chokidar.watch(join(__dirname, 'resources', '_rankings'), {
+// 	ignored: /(^|[\/\\])\../,
+// 	persistent: true,
+// });
+
+// watcher
+// 	.on('add', (path) => console.log(`File ${path} has been added`))
+// 	.on('change', (path) => console.log(`File ${path} has been changed`))
+// 	.on('unlink', (path) => console.log(`File ${path} has been removed`));
 
 XLSX.set_fs(fs);
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const { PROBLEMS_DIR, RANKING_DIR } = THEMIS_DIR;
-
-const getRowIndex = (c, sz) => {
-	const times = sz / 26;
-	const r = sz % 26;
-	let rowIdx = '';
-	for (let i = 0; i < sz; i++) {}
-	return rowIdx;
-};
+config();
 
 export const getYear = () => new Date().getFullYear();
 export const getMonth = () => new Date().getMonth();
 export const getDate = () => new Date().getDate();
-
 export const getMs = (time) => {
 	const [h, m, s] = time.split(':');
 	return (+h * 60 * 60 + +m * 60 + +s) * 1000;
@@ -33,7 +34,6 @@ export const getMs = (time) => {
 
 export const getAuthStatus = (req) =>
 	cookieParser.JSONCookies(req.cookies.isAuth || 0) || 0;
-
 export const getAuthUser = (req) =>
 	cookieParser.JSONCookies(req.cookies.user || '') || 'null';
 
@@ -45,6 +45,16 @@ export const getProblemList = () => {
 	const problems = [];
 
 	names.forEach((name, idx) => problems.push({ name, link: links[idx] }));
+	return problems;
+};
+
+export const getTaskList = () => {
+	if (!_fs.dir.read(TASKS_DIR).length) return [];
+
+	const names = _fs.dir.read(TASKS_DIR);
+	const problems = [];
+
+	names.forEach((name, idx) => problems.push(name));
 	return problems;
 };
 
@@ -63,18 +73,44 @@ export const getRankingList = () => {
 	);
 	return rankings;
 };
-
 export const getRankingData = (rankings) => {
-	const size = rankings.length;
-	return rankings.map((rank) => {
-		const { data } = rank;
-		const { Props, Sheets } = data;
+	const { data } = rankings[0];
+	const { Props, Sheets } = data;
 
-		const { ModifiedDate } = Props;
-		const scores = Sheets['Tổng hợp điểm'];
+	const { ModifiedDate } = Props;
+	const scores = Sheets['Tổng hợp điểm'];
 
-		return getRowIndex('B', size);
-	});
+	const size = getTaskList().length;
+	const newDate = ModifiedDate.toString().split('');
+
+	const scoreList = Object.entries(scores);
+	scoreList.pop();
+
+	let statusList = scoreList.slice(2 + size + 1);
+	const status = [];
+	for (let i = 0; i < statusList.length; i++) {
+		if (statusList[i][1]?.r) {
+			const name = statusList[i][1].v;
+			const list = [];
+
+			for (let j = i + 1; j < statusList.length; j++)
+				if (!statusList[j][1]?.r) {
+					list.push(statusList[j][1].v);
+				} else {
+					i = j - 1;
+					break;
+				}
+
+			status.push({ name, list });
+		}
+	}
+
+	return {
+		ModifiedDate: newDate,
+		tasks: scoreList.slice(2, 2 + size).map((_) => _[1].v),
+		status,
+		scores,
+	};
 };
 
 export const getUserAccounts = (req) => {
@@ -92,5 +128,3 @@ export const defaultEJS = {
 	isAuth: 0,
 	user: '',
 };
-
-console.log(getRowIndex('B', 25));

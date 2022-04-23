@@ -1,5 +1,6 @@
 import about from './about.js';
 import admin from './admin.js';
+import err from './err.js';
 import home from './home.js';
 import problems from './problems.js';
 import ranking from './ranking.js';
@@ -12,6 +13,7 @@ const route = (app) => {
 	app.use('/ranking', ranking);
 	app.use('/about', about);
 	app.use('/', home);
+	app.use('/*', err);
 };
 
 export default route;

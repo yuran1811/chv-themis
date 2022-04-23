@@ -1,7 +1,7 @@
 import * as utils from '../tools/utils.js';
 
 class AboutController {
-	// [GET] /about/
+	// [GET] /about
 	show(req, res, next) {
 		res.render('about', {
 			...utils.defaultEJS,
