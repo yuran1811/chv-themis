@@ -14,6 +14,14 @@ XLSX.set_fs(fs);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const { PROBLEMS_DIR, RANKING_DIR } = THEMIS_DIR;
 
+const getRowIndex = (c, sz) => {
+	const times = sz / 26;
+	const r = sz % 26;
+	let rowIdx = '';
+	for (let i = 0; i < sz; i++) {}
+	return rowIdx;
+};
+
 export const getYear = () => new Date().getFullYear();
 export const getMonth = () => new Date().getMonth();
 export const getDate = () => new Date().getDate();
@@ -36,12 +44,7 @@ export const getProblemList = () => {
 	const links = names.map((_) => `/_problems/${_}`);
 	const problems = [];
 
-	names.forEach((name, idx) =>
-		problems.push({
-			name,
-			link: links[idx],
-		})
-	);
+	names.forEach((name, idx) => problems.push({ name, link: links[idx] }));
 	return problems;
 };
 
@@ -61,6 +64,19 @@ export const getRankingList = () => {
 	return rankings;
 };
 
+export const getRankingData = (rankings) => {
+	const size = rankings.length;
+	return rankings.map((rank) => {
+		const { data } = rank;
+		const { Props, Sheets } = data;
+
+		const { ModifiedDate } = Props;
+		const scores = Sheets['Tổng hợp điểm'];
+
+		return getRowIndex('B', size);
+	});
+};
+
 export const getUserAccounts = (req) => {
 	const filePath = resolve(__dirname, '../', 'db', 'accounts.json');
 	const accounts = JSON.parse(_fs.f.read(filePath));
@@ -76,3 +92,5 @@ export const defaultEJS = {
 	isAuth: 0,
 	user: '',
 };
+
+console.log(getRowIndex('B', 25));

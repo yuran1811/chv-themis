@@ -15,3 +15,18 @@ class RankingController {
 }
 
 export default new RankingController();
+
+/* 
+
+import chokidar from 'chokidar';
+
+const watcher = chokidar.watch(join(__dirname, 'resources', '_rankings'), {
+	ignored: /(^|[\/\\])\../,
+	persistent: true,
+});
+watcher
+	.on('add', (path) => console.log(`File ${path} has been added`))
+	.on('change', (path) => console.log(`File ${path} has been changed`))
+	.on('unlink', (path) => console.log(`File ${path} has been removed`));
+	
+*/

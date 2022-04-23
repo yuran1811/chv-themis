@@ -1,2 +1,7 @@
 contest
 *.contest
+node_modules
+tasks
+Logs
+_rankings
+constetants
