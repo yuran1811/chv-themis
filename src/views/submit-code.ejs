@@ -1,5 +1,3 @@
-<!-- https://getbootstrap.com/docs/5.1/examples/ -->
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -20,7 +18,10 @@
 	<body>
 		<div id="app">
 			<%- include('./partials/header') %>
-			<main></main>
+			<main>
+				<% if (isAuth == "1") { %> <%- include('./partials/code-area')
+				%> <% } %>
+			</main>
 			<%- include('./partials/footer') %>
 		</div>
 	</body>

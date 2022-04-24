@@ -1,0 +1,27 @@
+<div class="container">
+	<form
+		method="POST"
+		action="/submit-code/<%= user %>"
+		enctype="multipart/form-datas"
+	>
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="problem">Options</label>
+			</div>
+			<select class="custom-select" id="problem" name="problem">
+				<% tasks.forEach(_ => { %>
+				<option value="<%= _ %>"><%= _ %></option>
+				<% } ) %>
+			</select>
+		</div>
+
+		<textarea
+			cols="50"
+			rows="10"
+			name="submission"
+			id="submit-code"
+		></textarea>
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>

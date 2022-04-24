@@ -1,56 +1,34 @@
 <div class="ranking-table">
-	<table class="users-table">
+	<table class="table last-table">
 		<thead>
 			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Name</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% status.forEach((_, idx) => { %>
-			<tr>
-				<th scope="row"><%= idx + 1 %></th>
-				<th scope="row"><%= _.name %></th>
-			</tr>
-			<% }) %>
-		</tbody>
-	</table>
-
-	<div class="scores-table">
-		<table class="table">
-			<thead>
-				<tr>
-					<% tasks.forEach((_) => { %>
-					<th scope="col"><%= _ %></th>
-					<% }) %>
-					<th scope="col">Total</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% status.forEach((_, idx) => { %>
-				<tr>
-					<% _.list.forEach((score) => { %>
-					<td><%= score %></td>
-					<% }) %> <% for (var i = _.list.length; i < tasks.length;
-					i++) { %>
-					<td>0</td>
-					<% } %>
-				</tr>
+				<th class="fixed-col mcol-1" scope="col">Name</th>
+				
+				<% tasks.forEach((_) => { %>
+				<th scope="col"><%= _ %></th>
 				<% }) %>
-			</tbody>
-		</table>
-	</div>
-
-	<table class="total-table">
-		<thead>
-			<tr>
-				<th scope="col">Total</th>
+				
+				<th class="fixed-col mcol-n1" scope="col">Total</th>
 			</tr>
 		</thead>
 		<tbody>
 			<% status.forEach((_, idx) => { %>
 			<tr>
-				<th scope="row"><%= _.list[_.list.length - 1] %></th>
+				<th class="fixed-col mcol-1" scope="row" style="color: <%= _.color %>"><%= idx + 1 %>. <%= _.name %> </th>
+				
+				<% _.list.forEach((score, idx) => {
+					if (idx == _.list.length - 1 && _.list.length - 1 == tasks.length) 
+					{ %> <th class="fixed-col mcol-n1" scope="row" style="color: <%= _.color %>"><%= score %></th> <% }
+					else { %><td scope="row"><%= score %></td><% }
+				}) %>
+				
+				<% for (var i = _.list.length; i < tasks.length; i++)
+					if (i == tasks.length - 1) { %>
+					<td class="fixed-col mcol-n1" scope="row">0</td>
+					<% } else { %> 
+					<td scope="row">0</td>
+					<% }
+				%>
 			</tr>
 			<% }) %>
 		</tbody>

@@ -24,6 +24,68 @@ XLSX.set_fs(fs);
 
 config();
 
+export const palettes = {
+	problem: {
+		list: [
+			'OK',
+			'TIME_LIMIT_EXCEEDED',
+			'MEMORY_LIMIT_EXCEEDED',
+			'COMPILATION_ERROR',
+			'RUNTIME_ERROR',
+			'FAILED',
+			'WRONG_ANSWER',
+		],
+		status: {
+			OK: {
+				color: '#00a92a',
+				text: 'AC',
+			},
+			TIME_LIMIT_EXCEEDED: {
+				color: '#fff863',
+				text: 'TLE',
+			},
+			MEMORY_LIMIT_EXCEEDED: {
+				color: '#ffa71c',
+				text: 'MLE',
+			},
+			COMPILATION_ERROR: {
+				color: '#ffa71c',
+				text: 'CE',
+			},
+			RUNTIME_ERROR: {
+				color: '#ffa71c',
+				text: 'RE',
+			},
+			FAILED: {
+				color: 'red',
+				text: 'FAILED',
+			},
+			WRONG_ANSWER: {
+				color: 'red',
+				text: 'WA',
+			},
+			OTHER: {
+				color: 'lightgrey',
+			},
+		},
+	},
+	rank: {
+		list: ['#f00', '#fb5', '#f8f', '#aaf', '#7db', '#7f7', '#ccc'],
+		codeforce: {
+			newbie: '#ccc',
+			pupil: '#7f7',
+			specialist: '#7db',
+			expert: '#aaf',
+			'candidate master': '#f8f',
+			master: '#fc8',
+			'international master': '#fb5',
+			grandmaster: '#f77',
+			'international grandmaster': '#f33',
+			'legendary grandmaster': '#f00',
+		},
+	},
+};
+
 export const getYear = () => new Date().getFullYear();
 export const getMonth = () => new Date().getMonth();
 export const getDate = () => new Date().getDate();
@@ -92,18 +154,26 @@ export const getRankingData = (rankings) => {
 		if (statusList[i][1]?.r) {
 			const name = statusList[i][1].v;
 			const list = [];
+			let score = 0;
 
 			for (let j = i + 1; j < statusList.length; j++)
 				if (!statusList[j][1]?.r) {
 					list.push(statusList[j][1].v);
+					score += statusList[j][1].v;
 				} else {
 					i = j - 1;
 					break;
 				}
 
-			status.push({ name, list });
+			status.push({ name, list, score });
 		}
 	}
+
+	status.sort((a, b) => b.score - a.score);
+	status.forEach((_, idx) => {
+		if (idx < palettes.rank.list.length) _.color = palettes.rank.list[idx];
+		else _.color = palettes.rank.list[palettes.rank.list.length - 1];
+	});
 
 	return {
 		ModifiedDate: newDate,
@@ -120,7 +190,7 @@ export const getUserAccounts = (req) => {
 };
 
 export const cvertSubmissionName = (req, file) =>
-	`[${req.params.user}][${file.newFileName}].cpp`;
+	`[${req.params.user}][${file}].cpp`;
 
 export const defaultEJS = {
 	year: getYear(),

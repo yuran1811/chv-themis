@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
 	},
 	filename: (req, file, cb) => {
 		file.newFileName = file.originalname.replace('.cpp', '');
-		cb(null, utils.cvertSubmissionName(req, file));
+		cb(null, utils.cvertSubmissionName(req, file.newFileName));
 	},
 });
 

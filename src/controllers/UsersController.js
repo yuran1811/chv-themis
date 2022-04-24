@@ -6,7 +6,7 @@ class UsersController {
 		const accounts = getUserAccounts();
 		const { name, pass } = req.body;
 		const isAuth = accounts.some((_) => _.name === name && _.pass === pass);
-		const maxAge = getMs('00:01:00');
+		const maxAge = getMs('00:30:00');
 
 		if (isAuth) {
 			res.cookie('isAuth', 1, { maxAge });

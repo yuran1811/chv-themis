@@ -6,11 +6,17 @@
 >
 	<input
 		type="file"
+		value="Browse"
 		name="submissions"
 		class="form-control-file file-upload"
 		placeholder="Select file"
 		accept=".cpp, .c, .pas"
 		multiple
 	/>
-	<button type="submit" class="btn btn-primary">Submit</button>
+	<button type="submit" class="btn btn-primary submit-files">
+		<i class="bi bi-send"></i>
+	</button>
+	<a class="btn btn-info ms-2 submit-code" href="/submit-code">
+		<i class="bi bi-code-slash"></i>
+	</a>
 </form>
