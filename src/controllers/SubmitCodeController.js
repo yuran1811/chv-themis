@@ -6,7 +6,6 @@ import * as utils from '../tools/utils.js';
 class SubmitCodeController {
 	// [GET] /submit-code
 	show(req, res, next) {
-		console.log(utils.getTaskList());
 		res.render('submit-code', {
 			...utils.defaultEJS,
 			navStatus: 'submit-code',
@@ -18,13 +17,13 @@ class SubmitCodeController {
 
 	// [POST] /submit-code/:user
 	submit(req, res, next) {
-		const { submission, problem } = req.body;
-		const { user } = req.params;
+		const { submission, problem, lang } = req.body;
+		console.log(req.body);
 
 		_fs.f.write(
 			resolve(
 				THEMIS_DIR.SUBMISSIONS_DIR,
-				utils.cvertSubmissionName(req, problem)
+				utils.cvertSubmissionName(req, problem, lang)
 			),
 			submission
 		);

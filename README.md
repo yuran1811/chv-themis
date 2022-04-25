@@ -12,7 +12,7 @@
 
 -   Extract the source code
 
--   Open cmd and run this command
+-   Open cmd and run this command to init project
 
 ```
 npm i

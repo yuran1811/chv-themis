@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 1811;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(join(__dirname, 'public')));
+app.use(express.static(join(__dirname, '..', 'node_modules')));
 app.use(urlencoded({ extended: true }));
 app.use(json());
 

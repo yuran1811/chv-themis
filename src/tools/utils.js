@@ -189,8 +189,8 @@ export const getUserAccounts = (req) => {
 	return accounts;
 };
 
-export const cvertSubmissionName = (req, file) =>
-	`[${req.params.user}][${file}].cpp`;
+export const cvertSubmissionName = (req, file, lang = 'cpp') =>
+	`[${req.params.user}][${file}].${lang}`;
 
 export const defaultEJS = {
 	year: getYear(),
