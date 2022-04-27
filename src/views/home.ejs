@@ -18,8 +18,11 @@
 	<body>
 		<div id="app">
 			<%- include('./partials/header') %>
-			<main>Home</main>
-			<%- include('./partials/footer') %>
+			<main>
+				<% if (isAuth == "1") { %> <%- include('./partials/logs') %> <%
+				} %>
+			</main>
+			%> <%- include('./partials/footer') %>
 		</div>
 	</body>
 </html>

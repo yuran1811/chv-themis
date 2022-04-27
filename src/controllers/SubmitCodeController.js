@@ -18,7 +18,6 @@ class SubmitCodeController {
 	// [POST] /submit-code/:user
 	submit(req, res, next) {
 		const { submission, problem, lang } = req.body;
-		console.log(req.body);
 
 		_fs.f.write(
 			resolve(

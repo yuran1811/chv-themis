@@ -1,0 +1,54 @@
+<div class="container logs-container mt-5">
+	<div class="title">Submissions Logs</div>
+
+	<ul class="list-group log-list">
+		<% logs.forEach((_) => { %>
+		<li
+			class="list-group-item log-item accordion"
+			id="<%= _.user%>-<%= _.name%>"
+		>
+			<div class="accordion-item w-100">
+				<h2
+					class="accordion-header"
+					id="<%= _.user%>-<%= _.name%>-heading"
+				>
+					<button
+						class="accordion-button collapsed"
+						type="button"
+						aria-expanded="true"
+						data-bs-toggle="collapse"
+						data-bs-target="#<%= _.user%>-<%= _.name%>-collapse"
+						aria-controls="<%= _.user%>-<%= _.name%>-collapse"
+					>
+						<div class="ms-2 me-auto">
+							<div class="fw-bold">
+								<%= _?.name %> - <%= _.score %>
+							</div>
+						</div>
+					</button>
+				</h2>
+
+				<div
+					id="<%= _.user%>-<%= _.name%>-collapse"
+					class="accordion-collapse collapse"
+					aria-labelledby="<%= _.user%>-<%= _.name%>-heading"
+					data-bs-parent="#<%= _.user%>-<%= _.name%>"
+				>
+					<div class="accordion-body">
+						<div class="content">
+							<% for (var i=0; i<_?.content.length; i+=3) { { %>
+							<div class="log-ans">
+								<% for (var j=i; j<i+3; j++) { { %>
+								<p><%= _?.content[j] %> </p>
+								<% } } %>
+							</div>
+							<br>
+							<% } } %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+		<% }) %>
+	</ul>
+</div>

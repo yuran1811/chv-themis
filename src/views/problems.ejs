@@ -4,7 +4,11 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="shortcut icon" href="/img/logo_100x100.png" type="image/x-icon">
+		<link
+			rel="shortcut icon"
+			href="/img/logo_100x100.png"
+			type="image/x-icon"
+		/>
 		<link rel="stylesheet" href="/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/css/bootstrap-icons.min.css" />
 		<link rel="stylesheet" href="/css/index.css" />
@@ -15,6 +19,10 @@
 		<div id="app">
 			<%- include('./partials/header') %>
 			<main>
+			<%
+				if (problems.length == 0) { %>
+					<%- include('./partials/no-data') %>
+				<% } else { %>
 				<div class="problem-container">
 					<ul class="problem-list">
 						<% problems.forEach(function(problem) { %>
@@ -28,6 +36,8 @@
 						<% }); %>
 					</ul class="">
 				</div>
+				<% }
+			%>
 			</main>
 			<%- include('./partials/footer') %>
 		</div>

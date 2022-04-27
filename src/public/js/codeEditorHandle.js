@@ -7,7 +7,7 @@ require(['vs/editor/editor.main'], () => {
 		language: 'cpp',
 		theme: 'vs-dark',
 		model: monaco.editor.createModel(
-			`#include <iostream>\nusing namespace std;\n\nint main() {}`,
+			`#include <iostream>\nusing namespace std;\n\nint main() {\n\tcout << (2 >= 1);\n}`,
 			'cpp'
 		),
 		automaticLayout: true,
@@ -15,7 +15,6 @@ require(['vs/editor/editor.main'], () => {
 			enabled: false,
 		},
 		fontLigatures: true,
-		fontFamily: 'Fira Code',
 		wordWrap: 'on',
 	});
 });
@@ -31,13 +30,16 @@ langSelect.onchange = function () {
 	const opts = this.options;
 	monaco.editor.setModelLanguage(
 		editor.getModel(),
-		opts[opts.selectedIndex].getAttributes('lang')
+		opts[opts.selectedIndex].getAttribute('lang')
 	);
 };
 
 const submitCodeForm = document.querySelector('.submit-code-form');
 submitCodeForm.addEventListener('formdata', (e) => {
-	e.formData.append('submission', editor.getModel().getValue() || "// Nothing");
+	e.formData.append(
+		'submission',
+		editor.getModel().getValue() || '// Nothing'
+	);
 });
 
 addEventListener('resize', () => {

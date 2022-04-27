@@ -1,5 +1,10 @@
 @import 'variables';
 
+@font-face {
+	font-family: 'Fira Coding';
+	src: url('/css/fonts/FiraCode-Regular.ttf') format('truetype');
+}
+
 * {
 	box-sizing: border-box;
 	user-select: none;

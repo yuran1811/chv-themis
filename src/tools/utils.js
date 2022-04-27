@@ -9,7 +9,8 @@ import _fs from './fsHandles.js';
 import * as THEMIS_DIR from './getDirs.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const { PROBLEMS_DIR, RANKING_DIR, TASKS_DIR } = THEMIS_DIR;
+const { PROBLEMS_DIR, RANKING_DIR, TASKS_DIR, SUBMISSIONS_DIR, LOGS_DIR } =
+	THEMIS_DIR;
 // const watcher = chokidar.watch(join(__dirname, 'resources', '_rankings'), {
 // 	ignored: /(^|[\/\\])\../,
 // 	persistent: true,
@@ -86,12 +87,53 @@ export const palettes = {
 	},
 };
 
+export const cvertSubmissionName = (req, file, lang = 'cpp') =>
+	`[${req.params.user}][${file}].${lang}`;
+
 export const getYear = () => new Date().getFullYear();
 export const getMonth = () => new Date().getMonth();
 export const getDate = () => new Date().getDate();
 export const getMs = (time) => {
 	const [h, m, s] = time.split(':');
 	return (+h * 60 * 60 + +m * 60 + +s) * 1000;
+};
+
+export const getLogData = (path, file) => {
+	const idx1 = file.indexOf('][');
+	const idx2 = file.indexOf('.cpp');
+
+	const fileUser = file.slice(1, idx1);
+	const fileName = file.slice(idx1 + 2, idx2 - 1);
+
+	const logPath = resolve(path, file);
+	const logContent = _fs.f.read(logPath, 'utf-8').toString().split(/\r?\n/);
+
+	const score = logContent[0].slice(logContent[0].indexOf(':') + 2);
+
+	const logs = [...logContent];
+	logs.splice(0, 4);
+	logs.pop();
+
+	return { fileUser, fileName, logPath, score, logs };
+};
+export const getLogList = (user) => {
+	const path = resolve(SUBMISSIONS_DIR, 'Logs');
+	const files = _fs.dir.read(path);
+	return files.map((_) => {
+		const { fileUser, fileName, logPath, score, logs } = getLogData(
+			path,
+			_
+		);
+		if (user === fileUser) {
+			return {
+				user,
+				name: fileName,
+				link: logPath,
+				score,
+				content: logs,
+			};
+		}
+	});
 };
 
 export const getAuthStatus = (req) =>
@@ -120,12 +162,9 @@ export const getTaskList = () => {
 	return problems;
 };
 
-export const getRankingList = () => {
-	if (!_fs.dir.read(RANKING_DIR).length) return [];
-
-	const names = _fs.dir.read(RANKING_DIR);
-	const links = names.map((_) => resolve(RANKING_DIR, _));
-	const rankings = [];
+export const getRankOnl = (rankings) => {
+	const names = _fs.dir.read(LOGS_DIR);
+	const links = names.map((_) => resolve(LOGS_DIR, _));
 
 	names.forEach((name, idx) =>
 		rankings.push({
@@ -133,13 +172,36 @@ export const getRankingList = () => {
 			data: XLSX.readFile(links[idx], { type: 'file' }),
 		})
 	);
+};
+export const getRankOff = (rankings) => {
+	const names = _fs.dir.read(RANKING_DIR);
+	const links = names.map((_) => resolve(RANKING_DIR, _));
+
+	names.forEach((name, idx) =>
+		rankings.push({
+			name,
+			data: XLSX.readFile(links[idx], { type: 'file' }),
+		})
+	);
+};
+export const getRankingList = (mode = 'off') => {
+	if (mode == 'off' && !_fs.dir.read(RANKING_DIR).length) return [];
+	if (mode == 'onl' && !_fs.dir.read(LOGS_DIR).length) return [];
+
+	const rankings = [];
+
+	if (mode == 'off') getRankOff(rankings);
+	if (mode == 'onl') getRankOnl(rankings);
 	return rankings;
 };
 export const getRankingData = (rankings) => {
 	const { data } = rankings[0];
-	const { Props, Sheets } = data;
+	if (!data?.Sheets || !data?.Props) return { fail: 1 };
 
+	const { Props, Sheets } = data;
 	const { ModifiedDate } = Props;
+
+	if (!Sheets['Tổng hợp điểm']) return { fail: 1 };
 	const scores = Sheets['Tổng hợp điểm'];
 
 	const size = getTaskList().length;
@@ -150,7 +212,17 @@ export const getRankingData = (rankings) => {
 
 	let statusList = scoreList.slice(2 + size + 1);
 	const status = [];
+
 	for (let i = 0; i < statusList.length; i++) {
+		if (statusList[i][1].v === 'Chưa chấm') {
+			statusList[i][1].v = 0;
+			statusList[i][1].w = '0.00';
+			statusList[i][1].t = 'n';
+			statusList[i][1].r = undefined;
+			delete statusList[i][1].r;
+			delete statusList[i][1].h;
+		}
+
 		if (statusList[i][1]?.r) {
 			const name = statusList[i][1].v;
 			const list = [];
@@ -159,7 +231,7 @@ export const getRankingData = (rankings) => {
 			for (let j = i + 1; j < statusList.length; j++)
 				if (!statusList[j][1]?.r) {
 					list.push(statusList[j][1].v);
-					score += statusList[j][1].v;
+					score += +statusList[j][1].v;
 				} else {
 					i = j - 1;
 					break;
@@ -168,6 +240,8 @@ export const getRankingData = (rankings) => {
 			status.push({ name, list, score });
 		}
 	}
+
+	console.log(scoreList);
 
 	status.sort((a, b) => b.score - a.score);
 	status.forEach((_, idx) => {
@@ -180,6 +254,7 @@ export const getRankingData = (rankings) => {
 		tasks: scoreList.slice(2, 2 + size).map((_) => _[1].v),
 		status,
 		scores,
+		fail: 0,
 	};
 };
 
@@ -188,9 +263,6 @@ export const getUserAccounts = (req) => {
 	const accounts = JSON.parse(_fs.f.read(filePath));
 	return accounts;
 };
-
-export const cvertSubmissionName = (req, file, lang = 'cpp') =>
-	`[${req.params.user}][${file}].${lang}`;
 
 export const defaultEJS = {
 	year: getYear(),

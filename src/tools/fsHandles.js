@@ -5,8 +5,8 @@ const _fs = {
 		write: (file, data, options = {}) => {
 			fs.writeFileSync(file, data, options);
 		},
-		read: (path) => {
-			return fs.readFileSync(path);
+		read: (path, options) => {
+			return fs.readFileSync(path, options);
 		},
 		copy: (src, dest) => {
 			fs.copyFileSync(src, dest);
