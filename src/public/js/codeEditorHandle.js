@@ -7,7 +7,7 @@ require(['vs/editor/editor.main'], () => {
 		language: 'cpp',
 		theme: 'vs-dark',
 		model: monaco.editor.createModel(
-			`#include <iostream>\nusing namespace std;\n\nint main() {\n\tcout << (2 >= 1);\n}`,
+			`#include <iostream>\nusing namespace std;\n\nint main() {}`,
 			'cpp'
 		),
 		automaticLayout: true,

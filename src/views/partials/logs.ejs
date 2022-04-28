@@ -1,7 +1,7 @@
 <div class="container logs-container mt-5">
 	<div class="title">Submissions Logs</div>
 
-	<ul class="list-group log-list">
+	<ul class="list-group log-list" id="<%= user %>-logs">
 		<% logs.forEach((_) => { %>
 		<li
 			class="list-group-item log-item accordion"
@@ -32,17 +32,17 @@
 					id="<%= _.user%>-<%= _.name%>-collapse"
 					class="accordion-collapse collapse"
 					aria-labelledby="<%= _.user%>-<%= _.name%>-heading"
-					data-bs-parent="#<%= _.user%>-<%= _.name%>"
+					data-bs-parent="#<%= user%>-logs"
 				>
 					<div class="accordion-body">
 						<div class="content">
 							<% for (var i=0; i<_?.content.length; i+=3) { { %>
 							<div class="log-ans">
-								<% for (var j=i; j<i+3; j++) { { %>
-								<p><%= _?.content[j] %> </p>
-								<% } } %>
+								<p><%= _?.content[i] %></p>
+								<p><%= _?.content[i + 1] %></p>
+								<p class="fw-bold"><%= _?.content[i + 2] %></p>
 							</div>
-							<br>
+							<br />
 							<% } } %>
 						</div>
 					</div>

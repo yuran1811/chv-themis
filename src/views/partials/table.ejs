@@ -18,7 +18,7 @@
 				
 				<% _.list.forEach((score, idx) => {
 					if (idx == _.list.length - 1 && _.list.length - 1 == tasks.length) 
-					{ %> <th class="fixed-col mcol-n1" scope="row" style="color: <%= _.color %>"><%= score %></th> <% }
+					{ %> <th class="fixed-col mcol-n1" scope="row" style="color: <%= _.color %>"><%= _.score %></th> <% }
 					else { %><td scope="row"><%= score %></td><% }
 				}) %>
 				

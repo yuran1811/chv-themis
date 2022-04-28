@@ -8,14 +8,19 @@ import * as XLSX from 'xlsx/xlsx.mjs';
 import _fs from './fsHandles.js';
 import * as THEMIS_DIR from './getDirs.js';
 
+// os.networkInterfaces()
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const { PROBLEMS_DIR, RANKING_DIR, TASKS_DIR, SUBMISSIONS_DIR, LOGS_DIR } =
 	THEMIS_DIR;
-// const watcher = chokidar.watch(join(__dirname, 'resources', '_rankings'), {
-// 	ignored: /(^|[\/\\])\../,
-// 	persistent: true,
-// });
 
+// const watcher = chokidar.watch(
+// 	resolve(__dirname, '..', 'resources', '_rankings'),
+// 	{
+// 		ignored: /(^|[\/\\])\../,
+// 		persistent: true,
+// 	}
+// );
 // watcher
 // 	.on('add', (path) => console.log(`File ${path} has been added`))
 // 	.on('change', (path) => console.log(`File ${path} has been changed`))
@@ -119,7 +124,7 @@ export const getLogData = (path, file) => {
 export const getLogList = (user) => {
 	const path = resolve(SUBMISSIONS_DIR, 'Logs');
 	const files = _fs.dir.read(path);
-	return files.map((_) => {
+	const logList = files.map((_) => {
 		const { fileUser, fileName, logPath, score, logs } = getLogData(
 			path,
 			_
@@ -133,7 +138,15 @@ export const getLogList = (user) => {
 				content: logs,
 			};
 		}
+		return {
+			user,
+			name: '',
+			link: '',
+			score: 0,
+			content: [],
+		};
 	});
+	return logList;
 };
 
 export const getAuthStatus = (req) =>
@@ -151,6 +164,8 @@ export const getProblemList = () => {
 	names.forEach((name, idx) => problems.push({ name, link: links[idx] }));
 	return problems;
 };
+
+export const getConstetantList = () => {};
 
 export const getTaskList = () => {
 	if (!_fs.dir.read(TASKS_DIR).length) return [];
@@ -195,6 +210,17 @@ export const getRankingList = (mode = 'off') => {
 	return rankings;
 };
 export const getRankingData = (rankings) => {
+	const cvertData = (a, i) => {
+		if (a[i][1].v == 'Chưa chấm') {
+			a[i][1].v = 0;
+			a[i][1].w = '0.00';
+			a[i][1].t = 'n';
+
+			delete a[i][1].r;
+			delete a[i][1].h;
+		}
+	};
+
 	const { data } = rankings[0];
 	if (!data?.Sheets || !data?.Props) return { fail: 1 };
 
@@ -214,34 +240,28 @@ export const getRankingData = (rankings) => {
 	const status = [];
 
 	for (let i = 0; i < statusList.length; i++) {
-		if (statusList[i][1].v === 'Chưa chấm') {
-			statusList[i][1].v = 0;
-			statusList[i][1].w = '0.00';
-			statusList[i][1].t = 'n';
-			statusList[i][1].r = undefined;
-			delete statusList[i][1].r;
-			delete statusList[i][1].h;
-		}
+		cvertData(statusList, i);
 
 		if (statusList[i][1]?.r) {
 			const name = statusList[i][1].v;
 			const list = [];
 			let score = 0;
 
-			for (let j = i + 1; j < statusList.length; j++)
+			for (let j = i + 1; j < statusList.length; j++) {
+				cvertData(statusList, j);
 				if (!statusList[j][1]?.r) {
 					list.push(statusList[j][1].v);
 					score += +statusList[j][1].v;
 				} else {
 					i = j - 1;
+					score -= +statusList[i][1].v;
 					break;
 				}
+			}
 
 			status.push({ name, list, score });
 		}
 	}
-
-	console.log(scoreList);
 
 	status.sort((a, b) => b.score - a.score);
 	status.forEach((_, idx) => {

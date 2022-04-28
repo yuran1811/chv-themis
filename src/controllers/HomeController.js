@@ -6,6 +6,8 @@ class HomeController {
 		const user = utils.getAuthUser(req);
 		const logs = utils.getLogList(user);
 
+		console.log(logs);
+
 		res.render('home', {
 			...utils.defaultEJS,
 			isAuth: utils.getAuthStatus(req),

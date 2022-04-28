@@ -1,5 +1,5 @@
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
+// import cors from 'cors';
 import { config } from 'dotenv';
 import express, { json, urlencoded } from 'express';
 import methodOverride from 'method-override';
@@ -18,7 +18,7 @@ app.use(express.static(join(__dirname, '..', 'node_modules')));
 app.use(urlencoded({ extended: true }));
 app.use(json());
 
-app.use(cors());
+// app.use(cors());
 app.use(cookieParser());
 app.use(methodOverride('_method'));
 
