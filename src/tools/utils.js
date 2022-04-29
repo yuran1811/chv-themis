@@ -2,7 +2,7 @@
 import cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
 import * as fs from 'fs';
-import { dirname, resolve } from 'path';
+import { basename, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import * as XLSX from 'xlsx/xlsx.mjs';
 import _fs from './fsHandles.js';
@@ -11,8 +11,15 @@ import * as THEMIS_DIR from './getDirs.js';
 // os.networkInterfaces()
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const { PROBLEMS_DIR, RANKING_DIR, TASKS_DIR, SUBMISSIONS_DIR, LOGS_DIR } =
-	THEMIS_DIR;
+const {
+	RANKING_MODE,
+	PROBLEMS_DIR,
+	RANKING_DIR,
+	TASKS_DIR,
+	CONTESTANTS_DIR,
+	SUBMISSIONS_DIR,
+	LOGS_DIR,
+} = THEMIS_DIR;
 
 // const watcher = chokidar.watch(
 // 	resolve(__dirname, '..', 'resources', '_rankings'),
@@ -129,6 +136,7 @@ export const getLogList = (user) => {
 			path,
 			_
 		);
+
 		if (user === fileUser) {
 			return {
 				user,
@@ -158,14 +166,14 @@ export const getProblemList = () => {
 	if (!_fs.dir.read(PROBLEMS_DIR).length) return [];
 
 	const names = _fs.dir.read(PROBLEMS_DIR);
-	const links = names.map((_) => `/_problems/${_}`);
+	const links = names.map((_) => `/${basename(PROBLEMS_DIR)}/${_}`);
 	const problems = [];
 
 	names.forEach((name, idx) => problems.push({ name, link: links[idx] }));
 	return problems;
 };
 
-export const getConstetantList = () => {};
+export const getContestantList = () => {};
 
 export const getTaskList = () => {
 	if (!_fs.dir.read(TASKS_DIR).length) return [];
@@ -177,41 +185,80 @@ export const getTaskList = () => {
 	return problems;
 };
 
-export const getRankOnl = (rankings) => {
+const setRankColor = (status) => {
+	status.sort((a, b) => b.score - a.score);
+	status.forEach((_, idx) => {
+		if (idx < palettes.rank.list.length) _.color = palettes.rank.list[idx];
+		else _.color = palettes.rank.list[palettes.rank.list.length - 1];
+	});
+};
+export const getRankOnl = () => {
+	const rankings = [];
 	const names = _fs.dir.read(LOGS_DIR);
 	const links = names.map((_) => resolve(LOGS_DIR, _));
 
 	names.forEach((name, idx) =>
 		rankings.push({
 			name,
-			data: XLSX.readFile(links[idx], { type: 'file' }),
+			data: _fs.f.read(links[idx], 'utf-8').toString().split(/\r?\n/),
 		})
 	);
-};
-export const getRankOff = (rankings) => {
-	const names = _fs.dir.read(RANKING_DIR);
-	const links = names.map((_) => resolve(RANKING_DIR, _));
 
-	names.forEach((name, idx) =>
+	let contestants = {};
+	rankings.forEach((_) => {
+		const idx1 = _.name.indexOf('][');
+		const idx2 = _.name.indexOf('.cpp');
+
+		const fileUser = _.name.slice(1, idx1);
+		const fileName = _.name.slice(idx1 + 2, idx2 - 1);
+
+		if (!contestants.hasOwnProperty(fileUser))
+			contestants = { ...contestants, [fileUser]: {} };
+
+		contestants[fileUser][fileName] = +_.data[0].slice(
+			_.data[0].indexOf(':') + 2
+		);
+		isNaN(contestants[fileUser][fileName]) &&
+			(contestants[fileUser][fileName] = 0);
+	});
+
+	const list = Object.entries(contestants);
+	const status = list.map((_) => {
+		const tasks = getTaskList();
+		const list = tasks.map((task) =>
+			_[1].hasOwnProperty(task) ? _[1][task] : 0
+		);
+		const score = list.reduce((sum, _) => sum + _, 0);
+		list.push(score);
+
+		return {
+			name: _[0],
+			list,
+			score,
+			color: 'red',
+		};
+	});
+
+	setRankColor(status);
+
+	return { status, fail: 0 };
+};
+export const getRankOff = () => {
+	// Get .xlsx files
+	const status = [];
+	const rankings = [];
+	const rankFiles = _fs.dir.read(RANKING_DIR);
+	const links = rankFiles.map((_) => resolve(RANKING_DIR, _));
+
+	rankFiles.forEach((name, idx) =>
 		rankings.push({
 			name,
 			data: XLSX.readFile(links[idx], { type: 'file' }),
 		})
 	);
-};
-export const getRankingList = (mode = 'off') => {
-	if (mode == 'off' && !_fs.dir.read(RANKING_DIR).length) return [];
-	if (mode == 'onl' && !_fs.dir.read(LOGS_DIR).length) return [];
 
-	const rankings = [];
-
-	if (mode == 'off') getRankOff(rankings);
-	if (mode == 'onl') getRankOnl(rankings);
-	return rankings;
-};
-export const getRankingData = (rankings) => {
 	const cvertData = (a, i) => {
-		if (a[i][1].v == 'Chưa chấm') {
+		if (isNaN(+a[i][1].v)) {
 			a[i][1].v = 0;
 			a[i][1].w = '0.00';
 			a[i][1].t = 'n';
@@ -221,23 +268,20 @@ export const getRankingData = (rankings) => {
 		}
 	};
 
+	// Get data from the first .xlsx file
 	const { data } = rankings[0];
-	if (!data?.Sheets || !data?.Props) return { fail: 1 };
+	if (!data?.Sheets) return { status, fail: 1 };
 
-	const { Props, Sheets } = data;
-	const { ModifiedDate } = Props;
-
-	if (!Sheets['Tổng hợp điểm']) return { fail: 1 };
-	const scores = Sheets['Tổng hợp điểm'];
+	const { Sheets } = data;
+	if (!Sheets['Tổng hợp điểm']) return { status, fail: 1 };
 
 	const size = getTaskList().length;
-	const newDate = ModifiedDate.toString().split('');
 
+	const scores = Sheets['Tổng hợp điểm'];
 	const scoreList = Object.entries(scores);
 	scoreList.pop();
 
 	let statusList = scoreList.slice(2 + size + 1);
-	const status = [];
 
 	for (let i = 0; i < statusList.length; i++) {
 		cvertData(statusList, i);
@@ -263,18 +307,31 @@ export const getRankingData = (rankings) => {
 		}
 	}
 
-	status.sort((a, b) => b.score - a.score);
-	status.forEach((_, idx) => {
-		if (idx < palettes.rank.list.length) _.color = palettes.rank.list[idx];
-		else _.color = palettes.rank.list[palettes.rank.list.length - 1];
-	});
+	setRankColor(status);
+
+	return { status, fail: 0 };
+};
+export const getRankingData = () => {
+	const mode = RANKING_MODE;
+	const rankData = (mode == 'off' && getRankOff()) ||
+		(mode == 'onl' && getRankOnl()) || {
+			status: [],
+			fail: 0,
+		};
+	let ModifiedDate = Date.now();
+
+	((dir) => {
+		if (!_fs.dir.read(dir).length) return;
+
+		const { mtime } = _fs.f.stat(resolve(dir));
+		ModifiedDate =
+			mtime.toLocaleTimeString() + ' - ' + mtime.toLocaleDateString();
+	})(mode === 'off' ? RANKING_DIR : LOGS_DIR);
 
 	return {
-		ModifiedDate: newDate,
-		tasks: scoreList.slice(2, 2 + size).map((_) => _[1].v),
-		status,
-		scores,
-		fail: 0,
+		ModifiedDate,
+		tasks: getTaskList(),
+		...rankData,
 	};
 };
 

@@ -14,6 +14,9 @@ const _fs = {
 		rm: (path, options = {}) => {
 			fs.rmSync(path, options);
 		},
+		stat: (path) => {
+			return fs.statSync(path);
+		},
 	},
 	dir: {
 		exist: (directory) => fs.existsSync(directory),

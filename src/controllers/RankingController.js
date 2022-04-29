@@ -3,8 +3,7 @@ import * as utils from '../tools/utils.js';
 class RankingController {
 	// [GET] /ranking/
 	ranking(req, res, next) {
-		const rankings = utils.getRankingList('off');
-		const { tasks, status, scores, fail } = utils.getRankingData(rankings);
+		const { tasks, status, fail, ModifiedDate } = utils.getRankingData();
 
 		if (fail) {
 			res.redirect('/');
@@ -16,9 +15,9 @@ class RankingController {
 			navStatus: 'ranking',
 			isAuth: utils.getAuthStatus(req),
 			user: utils.getAuthUser(req),
-			rankings,
 			tasks,
 			status,
+			ModifiedDate
 		});
 	}
 }

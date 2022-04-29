@@ -130,8 +130,7 @@
 				}
 			}
 
-			a.submit-code,
-			button {
+			.btn {
 				width: 3.5rem;
 				height: 3.5rem;
 				display: flex;
@@ -274,7 +273,7 @@
 		.ranking-table {
 			position: relative;
 			width: calc(100% - 2rem);
-			height: 35rem;
+			max-height: 32rem;
 			margin: 1rem;
 			overflow: auto;
 

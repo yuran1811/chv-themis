@@ -4,7 +4,7 @@
 
 ### Step 1: Download
 
--   NodeJS (run this project on local): https://nodejs.org/en/
+-   NodeJS (to run this project locally): https://nodejs.org/en/
 
 -   Source code: https://github.com/yuran1811/chv-themis/releases/tag/1.0.0
 

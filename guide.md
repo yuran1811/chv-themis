@@ -6,6 +6,9 @@
 
 -   Default directories:
     -   SUBMISSIONS_DIR: ./src/resources/uploads
-    -   PROBLEMS_DIR: ./src/public/_problems
-    -   RANKING_DIR: ./src/resources/_rankings
+    -   PROBLEMS_DIR: ./src/public/\_problems
+    -   RANKING_DIR: ./src/resources/\_rankings
+    -   CONTESTANTS_DIR: ./src/resources/contestants
     -   TASKS_DIR = ./src/resources/tasks
+-   Defaul Mode:
+    -   RANKING_MODE: off / onl
