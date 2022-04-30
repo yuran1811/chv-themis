@@ -4,9 +4,15 @@ import { config } from 'dotenv';
 import * as fs from 'fs';
 import { basename, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
+import * as cpexcel from 'xlsx/dist/cpexcel.full.mjs';
 import * as XLSX from 'xlsx/xlsx.mjs';
 import _fs from './fsHandles.js';
 import * as THEMIS_DIR from './getDirs.js';
+
+XLSX.set_fs(fs);
+XLSX.set_cptable(cpexcel);
+
+config();
 
 // os.networkInterfaces()
 
@@ -32,10 +38,6 @@ const {
 // 	.on('add', (path) => console.log(`File ${path} has been added`))
 // 	.on('change', (path) => console.log(`File ${path} has been changed`))
 // 	.on('unlink', (path) => console.log(`File ${path} has been removed`));
-
-XLSX.set_fs(fs);
-
-config();
 
 export const palettes = {
 	problem: {
@@ -99,6 +101,13 @@ export const palettes = {
 	},
 };
 
+export const setRankColor = (status) => {
+	status.sort((a, b) => b.score - a.score);
+	status.forEach((_, idx) => {
+		if (idx < palettes.rank.list.length) _.color = palettes.rank.list[idx];
+		else _.color = palettes.rank.list[palettes.rank.list.length - 1];
+	});
+};
 export const cvertSubmissionName = (req, file, lang = 'cpp') =>
 	`[${req.params.user}][${file}].${lang}`;
 
@@ -173,7 +182,12 @@ export const getProblemList = () => {
 	return problems;
 };
 
-export const getContestantList = () => {};
+export const getContestantList = () => {
+	const contestants = _fs.dir.read(CONTESTANTS_DIR);
+	if (!contestants.length) return [];
+
+	return contestants.map((_) => _.toLocaleLowerCase());
+};
 
 export const getTaskList = () => {
 	if (!_fs.dir.read(TASKS_DIR).length) return [];
@@ -185,13 +199,6 @@ export const getTaskList = () => {
 	return problems;
 };
 
-const setRankColor = (status) => {
-	status.sort((a, b) => b.score - a.score);
-	status.forEach((_, idx) => {
-		if (idx < palettes.rank.list.length) _.color = palettes.rank.list[idx];
-		else _.color = palettes.rank.list[palettes.rank.list.length - 1];
-	});
-};
 export const getRankOnl = () => {
 	const rankings = [];
 	const names = _fs.dir.read(LOGS_DIR);
@@ -244,21 +251,24 @@ export const getRankOnl = () => {
 	return { status, fail: 0 };
 };
 export const getRankOff = () => {
-	// Get .xlsx files
 	const status = [];
 	const rankings = [];
+	const contestants = getContestantList();
 	const rankFiles = _fs.dir.read(RANKING_DIR);
 	const links = rankFiles.map((_) => resolve(RANKING_DIR, _));
 
 	rankFiles.forEach((name, idx) =>
 		rankings.push({
 			name,
-			data: XLSX.readFile(links[idx], { type: 'file' }),
+			data: XLSX.readFile(links[idx], { type: 'file', cellDates: true }),
 		})
 	);
 
 	const cvertData = (a, i) => {
-		if (isNaN(+a[i][1].v)) {
+		if (
+			isNaN(+a[i][1].v) &&
+			!contestants.includes(a[i][1].v.toString().toLowerCase())
+		) {
 			a[i][1].v = 0;
 			a[i][1].w = '0.00';
 			a[i][1].t = 'n';
@@ -268,20 +278,17 @@ export const getRankOff = () => {
 		}
 	};
 
-	// Get data from the first .xlsx file
 	const { data } = rankings[0];
 	if (!data?.Sheets) return { status, fail: 1 };
 
 	const { Sheets } = data;
 	if (!Sheets['Tổng hợp điểm']) return { status, fail: 1 };
 
-	const size = getTaskList().length;
-
 	const scores = Sheets['Tổng hợp điểm'];
 	const scoreList = Object.entries(scores);
 	scoreList.pop();
 
-	let statusList = scoreList.slice(2 + size + 1);
+	let statusList = scoreList.slice(2 + getTaskList().length + 1);
 
 	for (let i = 0; i < statusList.length; i++) {
 		cvertData(statusList, i);
@@ -289,23 +296,63 @@ export const getRankOff = () => {
 		if (statusList[i][1]?.r) {
 			const name = statusList[i][1].v;
 			const list = [];
-			let score = 0;
 
 			for (let j = i + 1; j < statusList.length; j++) {
 				cvertData(statusList, j);
-				if (!statusList[j][1]?.r) {
-					list.push(statusList[j][1].v);
-					score += +statusList[j][1].v;
-				} else {
+				if (!statusList[j][1]?.r) list.push(statusList[j][1].v);
+				else {
 					i = j - 1;
-					score -= +statusList[i][1].v;
 					break;
 				}
 			}
-
+			const score =
+				list.reduce((sum, _) => sum + _, 0) - list[list.length - 1];
 			status.push({ name, list, score });
 		}
 	}
+
+	setRankColor(status);
+
+	return { status, fail: 0 };
+};
+export const getRankOffXLSX = () => {
+	const status = [];
+	const rankings = [];
+	const rankFiles = _fs.dir.read(RANKING_DIR);
+	const links = rankFiles.map((_) => resolve(RANKING_DIR, _));
+
+	rankFiles.forEach((name, idx) =>
+		rankings.push({
+			name,
+			data: XLSX.readFile(links[idx], { type: 'file', cellDates: true }),
+		})
+	);
+
+	const { data } = rankings[0];
+	if (!data?.Sheets) return { status, fail: 1 };
+
+	const { Sheets } = data;
+	if (!Sheets['Tổng hợp điểm']) return { status, fail: 1 };
+
+	const scoresSheet = Sheets['Tổng hợp điểm'];
+	const scoresData = XLSX.utils.sheet_to_json(scoresSheet);
+	const userData = scoresData.map((item) => {
+		const list = Object.values(item);
+		return list.map((_, i) => {
+			if (i) isNaN(_) && (_ = 0);
+			return _;
+		});
+	});
+
+	userData.forEach((_) => {
+		const name = _.shift();
+		const score = _.slice(0, _.length - 1).reduce((sum, _) => sum + _, 0);
+		status.push({
+			name,
+			list: _,
+			score,
+		});
+	});
 
 	setRankColor(status);
 

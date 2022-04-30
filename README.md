@@ -6,7 +6,7 @@
 
 -   NodeJS (to run this project locally): https://nodejs.org/en/
 
--   Source code: https://github.com/yuran1811/chv-themis/releases/tag/1.0.0
+-   Source code: https://github.com/yuran1811/chv-themis/releases/tag/v1.0.0
 
 ### Step 2: Prepare
 
