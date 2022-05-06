@@ -1,7 +1,6 @@
 import cookieParser from 'cookie-parser';
 import { config } from 'dotenv';
 import express, { json, urlencoded } from 'express';
-// import methodOverride from 'method-override';
 import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import route from './routes/index.js';
@@ -16,8 +15,6 @@ app.use(express.static(join(__dirname, 'public')));
 app.use(express.static(join(__dirname, '..', 'node_modules')));
 app.use(urlencoded({ extended: true }));
 app.use(json());
-
-// app.use(methodOverride('_method'));
 app.use(cookieParser());
 
 app.set('view engine', 'ejs');

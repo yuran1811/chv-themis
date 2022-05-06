@@ -102,10 +102,12 @@ export const palettes = {
 };
 
 export const setRankColor = (status) => {
+	const rankList = palettes.rank.list;
+
 	status.sort((a, b) => b.score - a.score);
 	status.forEach((_, idx) => {
-		if (idx < palettes.rank.list.length) _.color = palettes.rank.list[idx];
-		else _.color = palettes.rank.list[palettes.rank.list.length - 1];
+		if (idx < rankList.length) _.color = rankList[idx];
+		else _.color = rankList[rankList.length - 1];
 	});
 };
 export const cvertSubmissionName = (req, file, lang = 'cpp') =>
@@ -145,22 +147,14 @@ export const getLogList = (user) => {
 			path,
 			_
 		);
+		const isUser = user === fileUser;
 
-		if (user === fileUser) {
-			return {
-				user,
-				name: fileName,
-				link: logPath,
-				score,
-				content: logs,
-			};
-		}
 		return {
 			user,
-			name: '',
-			link: '',
-			score: 0,
-			content: [],
+			name: isUser ? fileName : '',
+			link: isUser ? logPath : '',
+			score: isUser ? score : 0,
+			content: isUser ? logs : [],
 		};
 	});
 	return logList;
@@ -172,9 +166,9 @@ export const getAuthUser = (req) =>
 	cookieParser.JSONCookies(req.cookies.user || '') || 'null';
 
 export const getProblemList = () => {
-	if (!_fs.dir.read(PROBLEMS_DIR).length) return [];
-
 	const names = _fs.dir.read(PROBLEMS_DIR);
+	if (!names.length) return [];
+
 	const links = names.map((_) => `/${basename(PROBLEMS_DIR)}/${_}`);
 	const problems = [];
 
@@ -190,15 +184,17 @@ export const getContestantList = () => {
 };
 
 export const getTaskList = () => {
-	if (!_fs.dir.read(TASKS_DIR).length) return [];
-
 	const names = _fs.dir.read(TASKS_DIR);
+	if (!names.length) return [];
+
 	const problems = [];
 
 	names.forEach((name, idx) => problems.push(name));
 	return problems;
 };
 
+export const getXLSXFiles = (dir = RANKING_DIR) =>
+	_fs.dir.read(dir).filter((_) => _.includes('.xlsx'));
 export const getRankOnl = () => {
 	const rankings = [];
 	const names = _fs.dir.read(LOGS_DIR);
@@ -254,7 +250,7 @@ export const getRankOff = () => {
 	const status = [];
 	const rankings = [];
 	const contestants = getContestantList();
-	const rankFiles = _fs.dir.read(RANKING_DIR);
+	const rankFiles = getXLSXFiles();
 	const links = rankFiles.map((_) => resolve(RANKING_DIR, _));
 
 	rankFiles.forEach((name, idx) =>
@@ -318,7 +314,7 @@ export const getRankOff = () => {
 export const getRankOffXLSX = () => {
 	const status = [];
 	const rankings = [];
-	const rankFiles = _fs.dir.read(RANKING_DIR);
+	const rankFiles = getXLSXFiles();
 	const links = rankFiles.map((_) => resolve(RANKING_DIR, _));
 
 	rankFiles.forEach((name, idx) =>
@@ -368,9 +364,17 @@ export const getRankingData = () => {
 	let ModifiedDate = Date.now();
 
 	((dir) => {
-		if (!_fs.dir.read(dir).length) return;
+		const xlsxs = getXLSXFiles(dir);
+		const logs = _fs.dir.read(LOGS_DIR);
+		if (
+			(dir === RANKING_DIR && !xlsxs.length) ||
+			(dir === LOGS_DIR && !logs.length)
+		)
+			return;
 
-		const { mtime } = _fs.f.stat(resolve(dir));
+		const { mtime } = _fs.f.stat(
+			resolve(dir, dir === LOGS_DIR ? LOGS_DIR : xlsxs[0])
+		);
 		ModifiedDate =
 			mtime.toLocaleTimeString() + ' - ' + mtime.toLocaleDateString();
 	})(mode === 'off' ? RANKING_DIR : LOGS_DIR);

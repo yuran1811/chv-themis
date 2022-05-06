@@ -1,5 +1,3 @@
-contest
-*.contest
 node_modules
 tasks
 Logs

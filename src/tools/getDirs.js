@@ -1,7 +1,13 @@
 import { config } from 'dotenv';
+import * as fs from 'fs';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
+import * as cpexcel from 'xlsx/dist/cpexcel.full.mjs';
+import * as XLSX from 'xlsx/xlsx.mjs';
 import _fs from './fsHandles.js';
+
+XLSX.set_fs(fs);
+XLSX.set_cptable(cpexcel);
 
 config();
 
@@ -39,7 +45,11 @@ export const LOGS_DIR = resolve(SUBMISSIONS_DIR, 'Logs');
 		if (!_fs.dir.exist(_)) _fs.dir.md(_);
 	});
 
-	if (_fs.dir.read(RANKING_DIR).length === 0) 
-		_fs.f.write(resolve(RANKING_DIR, 'rank#1.xlsx'), '');
-	
+	const rankDir = _fs.dir.read(RANKING_DIR);
+	if (!rankDir.length || !rankDir.some((_) => _.includes('.xlsx'))) {
+		const wb = XLSX.utils.book_new();
+		const ws = XLSX.utils.aoa_to_sheet([['Mã thí sinh']]);
+		XLSX.utils.book_append_sheet(wb, ws, 'Tổng hợp điểm');
+		XLSX.writeFileXLSX(wb, resolve(RANKING_DIR, 'ranking.xlsx'));
+	}
 })();
