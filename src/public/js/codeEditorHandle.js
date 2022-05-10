@@ -7,16 +7,22 @@ require(['vs/editor/editor.main'], () => {
 		language: 'cpp',
 		theme: 'vs-dark',
 		model: monaco.editor.createModel(
-			`#include <iostream>\nusing namespace std;\n\nint main() {}`,
+			`#include <iostream>\nusing namespace std;\n\nint main() {\n\treturn 0;\n}`,
 			'cpp'
 		),
 		automaticLayout: true,
-		minimap: {
-			enabled: false,
-		},
+		minimap: { enabled: false },
 		fontLigatures: true,
-		wordWrap: 'on',
+		// wordWrap: 'on',
 	});
+
+	const theme = 'Oceanic Next';
+	fetch(`monaco-themes/themes/${theme}.json`)
+		.then((res) => res.json())
+		.then((data) => {
+			monaco.editor.defineTheme(theme.split(' ').join('-'), data);
+			monaco.editor.setTheme(theme.split(' ').join('-'));
+		});
 });
 
 codeEditorEl.onkeydown = (e) => {
