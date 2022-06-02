@@ -8,7 +8,7 @@
 
 #### Bước 1: Tải tài nguyên
 
--   NodeJS (dùng để chạy ứng dụng): https://nodejs.org/en/
+-   NodeJS (môi trường dùng để chạy ứng dụng): https://nodejs.org/en/
 
 -   Mã nguồn: https://github.com/yuran1811/chv-themis/releases/tag/v1.0.0
 
@@ -34,7 +34,7 @@ npm i
 
 #### Step 1: Download
 
--   NodeJS (to run this project locally): https://nodejs.org/en/
+-   NodeJS (to run this project in local): https://nodejs.org/en/
 
 -   Source code: https://github.com/yuran1811/chv-themis/releases/tag/v1.0.0
 
@@ -53,3 +53,12 @@ npm i
 -   Just run "run.cmd" to start server in anytime
 
 #### Config directories' path [**here**](./guide.md)
+
+---
+
+## Technologies
+
+-   NodeJS (ExpressJS)
+-   Monaco Editor
+-   Bootstrap 4
+-   EJS

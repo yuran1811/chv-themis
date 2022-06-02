@@ -6,6 +6,9 @@
 
 -   Mở file ".env" và thay đổi các đường dẫn của chính bạn
 
+-   Cổng máy chủ:
+    PORT: (mặc định là 1811)
+
 -   Các đường dẫn mặc định khi không được cấu hình:
 
     -   SUBMISSIONS_DIR: ./src/resources/uploads
@@ -24,6 +27,9 @@
 ## Change the folders' path
 
 -   Open ".env" file and change the directory for each folder you want
+
+-   Server Port:
+    PORT: (Default: 1811)
 
 -   Default directories:
 
