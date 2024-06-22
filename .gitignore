@@ -1,5 +1,8 @@
 node_modules
 Logs
+
+.env.*
+
 **/tasks
 **/_rankings
 **/contestants
