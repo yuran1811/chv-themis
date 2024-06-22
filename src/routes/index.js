@@ -8,14 +8,14 @@ import submitCode from './submit-code.js';
 import users from './users.js';
 
 const route = (app) => {
-	app.use('/admin', admin);
-	app.use('/users', users);
-	app.use('/problems', problems);
-	app.use('/submit-code', submitCode);
-	app.use('/ranking', ranking);
-	app.use('/about', about);
-	app.use('/', home);
-	app.use('/*', err);
+  app.use('/admin', admin);
+  app.use('/users', users);
+  app.use('/problems', problems);
+  app.use('/submit-code', submitCode);
+  app.use('/ranking', ranking);
+  app.use('/about', about);
+  app.use('/', home);
+  app.use('/*', err);
 };
 
 export default route;

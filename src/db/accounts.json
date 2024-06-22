@@ -1,10 +1,10 @@
 [
-	{
-		"name": "admin",
-		"pass": "admin"
-	},
-	{
-		"name": "khoa",
-		"pass": "1"
-	}
+  {
+    "name": "admin",
+    "pass": "admin"
+  },
+  {
+    "name": "khoa",
+    "pass": "1"
+  }
 ]

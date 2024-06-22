@@ -1,50 +1,37 @@
 <h2 class="p-3 m-3">Last update: <%= ModifiedDate %></h2>
 <div class="ranking-table">
-	<table class="table table-hover table-bordered last-table">
-		<thead>
-			<tr>
-				<th class="fixed-col mcol-1" scope="col">Name</th>
+  <table class="table table-hover table-bordered last-table">
+    <thead>
+      <tr>
+        <th class="fixed-col mcol-1" scope="col">Name</th>
 
-				<% tasks.forEach((_) => { %>
-				<th scope="col"><%= _ %></th>
-				<% }) %>
+        <% tasks.forEach((_) => { %>
+        <th scope="col"><%= _ %></th>
+        <% }) %>
 
-				<th class="fixed-col mcol-n1" scope="col">Total</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% status.forEach((_, idx) => { %>
-			<tr>
-				<th
-					class="fixed-col mcol-1"
-					scope="row"
-					style="color: <%= _.color %>"
-				>
-					<%= idx + 1 %>. <%= _.name %>
-				</th>
+        <th class="fixed-col mcol-n1" scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% status.forEach((_, idx) => { %>
+      <tr>
+        <th class="fixed-col mcol-1" scope="row" style="color: <%= _.color %>"><%= idx + 1 %>. <%= _.name %></th>
 
-				<% _.list.forEach((score, idx) => {
-					if (idx == _.list.length - 1 && _.list.length - 1 == tasks.length) { %>
-					<th
-						class="fixed-col mcol-n1"
-						scope="row"
-						style="color: <%= _.color %>"
-					>
-						<%= _.score %>
-					</th>
-				<% } else { %>
-					<td scope="row"><%= score %></td>
-				<% } }) %>
-				
-				<% for (var i = _.list.length; i < tasks.length; i++)
+        <% _.list.forEach((score, idx) => { if (idx == _.list.length - 1 && _.list.length - 1 == tasks.length) { %>
+        <th class="fixed-col mcol-n1" scope="row" style="color: <%= _.color %>"><%= _.score %></th>
+        <% } else { %>
+        <td scope="row"><%= score %></td>
+        <% } }) %>
+
+        <% for (var i = _.list.length; i < tasks.length; i++)
 					if (i == tasks.length - 1) { %>
-						<td class="fixed-col mcol-n1" scope="row">0</td>
-					<% } else { %>
-						<td scope="row">0</td>
-					<% }
+        <td class="fixed-col mcol-n1" scope="row">0</td>
+        <% } else { %>
+        <td scope="row">0</td>
+        <% }
 				%>
-			</tr>
-			<% }) %>
-		</tbody>
-	</table>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
 </div>

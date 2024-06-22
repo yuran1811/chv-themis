@@ -1,28 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link
-			rel="shortcut icon"
-			href="/img/logo_100x100.png"
-			type="image/x-icon"
-		/>
-		<link rel="stylesheet" href="/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="/css/bootstrap-icons.min.css" />
-		<link rel="stylesheet" href="/css/index.css" />
-		<script src="/js/bootstrap.bundle.min.js"></script>
-		<title>CHV - Themis</title>
-	</head>
-	<body>
-		<div id="app">
-			<%- include('./partials/header') %>
-			<main>
-				<% if (isAuth == "1") { %> <%-
-				include('./partials/logs') %> <% } %>
-			</main>
-			%> <%- include('./partials/footer') %>
-		</div>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/img/logo_100x100.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <title>CHV - Themis</title>
+  </head>
+  <body>
+    <div id="app">
+      <%- include('./partials/header') %>
+      <main>
+        <% if (isAuth == "1") { %>
+        <%-
+				include('./partials/logs') %>
+        <% } %>
+      </main>
+      %>
+      <%- include('./partials/footer') %>
+    </div>
+  </body>
 </html>

@@ -1,31 +1,24 @@
 <div class="container code-container">
-	<form
-		class="submit-code-form"
-		method="POST"
-		action="/submit-code/<%= user %>"
-		enctype="multipart/form-datas"
-	>
-		<div class="input-group mb-3 options-container">
-			<select class="form-select" id="problem" name="problem">
-				<% tasks.forEach(_ => { %>
-				<option value="<%= _ %>"><%= _ %></option>
-				<% } ) %>
-			</select>
+  <form class="submit-code-form" method="POST" action="/submit-code/<%= user %>" enctype="multipart/form-datas">
+    <div class="input-group mb-3 options-container">
+      <select class="form-select" id="problem" name="problem">
+        <% tasks.forEach(_ => { %>
+        <option value="<%= _ %>"><%= _ %></option>
+        <% } ) %>
+      </select>
 
-			<select class="form-select lang-select" id="lang" name="lang">
-				<option lang="cpp" value="cpp">C++</option>
-				<option lang="python" value="py">Python</option>
-				<option lang="pascal" value="pas">Pascal</option>
-				<option lang="javascript" value="js">Javascript</option>
-			</select>
+      <select class="form-select lang-select" id="lang" name="lang">
+        <option lang="cpp" value="cpp">C++</option>
+        <option lang="python" value="py">Python</option>
+        <option lang="pascal" value="pas">Pascal</option>
+        <option lang="javascript" value="js">Javascript</option>
+      </select>
 
-			<button type="submit" class="btn btn-primary submit-code-btn">
-				Submit
-			</button>
-		</div>
-		<div id="code-editor"></div>
-	</form>
+      <button type="submit" class="btn btn-primary submit-code-btn">Submit</button>
+    </div>
+    <div id="code-editor"></div>
+  </form>
 
-	<script src="/monaco-editor/min/vs/loader.js"></script>
-	<script src="/js/codeEditorHandle.js"></script>
+  <script src="/monaco-editor/min/vs/loader.js"></script>
+  <script src="/js/codeEditorHandle.js"></script>
 </div>

@@ -8,13 +8,13 @@ config();
 const { SUBMISSIONS_DIR } = THEMIS_DIR;
 
 const storage = multer.diskStorage({
-	destination: (req, file, cb) => {
-		cb(null, SUBMISSIONS_DIR);
-	},
-	filename: (req, file, cb) => {
-		file.newFileName = file.originalname.replace('.cpp', '');
-		cb(null, utils.cvertSubmissionName(req, file.newFileName));
-	},
+  destination: (req, file, cb) => {
+    cb(null, SUBMISSIONS_DIR);
+  },
+  filename: (req, file, cb) => {
+    file.newFileName = file.originalname.replace('.cpp', '');
+    cb(null, utils.cvertSubmissionName(req, file.newFileName));
+  },
 });
 
 const fileUpload = multer({ storage: storage });

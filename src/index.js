@@ -23,5 +23,5 @@ app.set('views', resolve(__dirname, 'views'));
 route(app);
 
 app.listen(PORT, () => {
-	console.log(`Listening: http://localhost:${PORT}`);
+  console.log(`Listening: http://localhost:${PORT}`);
 });

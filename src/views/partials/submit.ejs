@@ -1,25 +1,20 @@
-<form
-	class="submit-form"
-	method="POST"
-	action="/problems/submit/<%= user %>"
-	enctype="multipart/form-data"
->
-	<input
-		type="file"
-		value="Browse"
-		name="submissions"
-		class="form-control-file file-upload"
-		placeholder="Select file"
-		accept=".cpp, .c, .pas"
-		multiple
-	/>
-	<button class="btn btn-primary submit-files" type="submit">
-		<i class="bi bi-send"></i>
-	</button>
-	<a class="btn btn-info ms-2 submit-code" href="/submit-code">
-		<i class="bi bi-code-slash"></i>
-	</a>
-	<a class="btn btn-primary ms-2 sign-out" href="/">
-		<i class="bi bi-box-arrow-right"></i>
-	</a>
+<form class="submit-form" method="POST" action="/problems/submit/<%= user %>" enctype="multipart/form-data">
+  <input
+    type="file"
+    value="Browse"
+    name="submissions"
+    class="form-control-file file-upload"
+    placeholder="Select file"
+    accept=".cpp, .c, .pas"
+    multiple
+  />
+  <button class="btn btn-primary submit-files" type="submit">
+    <i class="bi bi-send"></i>
+  </button>
+  <a class="btn btn-info ms-2 submit-code" href="/submit-code">
+    <i class="bi bi-code-slash"></i>
+  </a>
+  <a class="btn btn-primary ms-2 sign-out" href="/">
+    <i class="bi bi-box-arrow-right"></i>
+  </a>
 </form>

@@ -10,15 +10,15 @@
 
 - [**NodeJS**](https://nodejs.org/en/) (dùng để chạy ứng dụng)
 - [**Mã nguồn**](https://github.com/yuran1811/chv-themis/releases/tag/v1.0.0)
-	- Có thể clone repo này về bằng cách chạy lệnh sau:
-	```bash
-	git clone https://github.com/yuran1811/chv-themis.git
-	```
+  - Có thể clone repo này về bằng cách chạy lệnh sau:
+  ```bash
+  git clone https://github.com/yuran1811/chv-themis.git
+  ```
 
 #### Bước 2: Các bước chuẩn bị để chạy ứng dụng
 
 - Giải nén mã nguồn vừa tải
-- Mở thư mục `chv-themis` vừa giải nén 
+- Mở thư mục `chv-themis` vừa giải nén
 - Mở cmd và chạy lệnh dưới đây để tải về các package cần thiết để chạy ứng dụng
 
 ```
@@ -39,10 +39,10 @@ yarn
 
 - [**NodeJS**](https://nodejs.org/en/) (to run this project locally)
 - [**Source code**](https://github.com/yuran1811/chv-themis/releases/tag/v1.0.0), or just clone it by using this command:
+
 ```bash
 git clone https://github.com/yuran1811/chv-themis.git
 ```
-
 
 #### Step 2: Prepare
 
@@ -57,6 +57,7 @@ yarn
 #### Step 3: Hosting
 
 - Just run "run.cmd" to start server in anytime, or run this command
+
 ```bash
 yarn test
 ```
