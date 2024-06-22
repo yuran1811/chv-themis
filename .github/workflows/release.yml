@@ -1,0 +1,62 @@
+name: main
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  publish:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build project
+        run: |
+          yarn
+          yarn build
+
+      - name: Zip Folder
+        run: zip -9 -r ${{ github.event.repository.name }}.zip . -i "node_modules/*" "public/static/*" "src/*" "md/*" ".env" ".LICENSE" "run.cmd" "*.json" "*.md"
+
+      - name: Generate release tag
+        id: generate_release_tag
+        uses: amitsingh-007/next-release-tag@v5.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_prefix: 'v'
+          tag_template: 'yyyy.mm.dd.i'
+
+      - name: Create Draft Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.generate_release_tag.outputs.next_release_tag }}
+          release_name: Release ${{ steps.generate_release_tag.outputs.next_release_tag }}
+          draft: true
+          prerelease: false
+
+      - uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./${{ github.event.repository.name }}.zip
+          asset_name: ${{ github.event.repository.name }}.zip
+          asset_content_type: application/zip
+
+      - uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{ steps.create_release.outputs.id }}

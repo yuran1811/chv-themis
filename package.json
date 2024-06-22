@@ -11,7 +11,7 @@
     "tw:w": "yarn tw -w",
     "sass": "sass public/scss/index.scss public/static/css/index.css --style compressed",
     "sass:w": "yarn sass -w",
-    "zip": "zip -9 -r chv-themis.zip . -i \"public/static/*\" \"src\" \"md\" \".env\" \".LICENSE\" \"run.cmd\" \"*.json\" \"*.md\" ",
+    "zip": "zip -9 -r chv-themis.zip . -i \"node_modules/*\" \"public/static/*\" \"src/*\" \"md/*\" \".env\" \".LICENSE\" \"run.cmd\" \"*.json\" \"*.md\"",
     "build": "yarn tw && yarn sass && yarn zip"
   },
   "keywords": [
