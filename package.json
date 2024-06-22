@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "nodemon src/index.js",
-    "tw": "npx tailwindcss -i public/css/tw.css -o public/css/tw-minify.css --watch",
+    "tw": "npx tailwindcss -i public/css/tw.css -o public/css/tw.min.css --watch",
     "sass": "sass --watch public/scss/index.scss public/css/index.css --style compressed"
   },
   "keywords": [
