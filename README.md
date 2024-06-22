@@ -9,17 +9,13 @@
 #### Bước 1: Tải tài nguyên
 
 - [**NodeJS**](https://nodejs.org/en/) (dùng để chạy ứng dụng)
-- [**Mã nguồn**](https://github.com/yuran1811/chv-themis/releases/tag/v1.0.0)
-  - Có thể clone repo này về bằng cách chạy lệnh sau:
-  ```bash
-  git clone https://github.com/yuran1811/chv-themis.git
-  ```
+- [**Tải file `chv-themis.zip` ở phiên bản mới nhất**](https://github.com/yuran1811/chv-themis/releases)
 
 #### Bước 2: Các bước chuẩn bị để chạy ứng dụng
 
-- Giải nén mã nguồn vừa tải
+- Giải nén file `chv-themis.zip` vừa tải
 - Mở thư mục `chv-themis` vừa giải nén
-- Mở cmd và chạy lệnh dưới đây để tải về các package cần thiết để chạy ứng dụng
+- Mở `cmd` tại thư mục vừa mở và chạy lệnh dưới đây để tải về các package
 
 ```
 yarn
@@ -38,15 +34,11 @@ yarn
 #### Step 1: Download
 
 - [**NodeJS**](https://nodejs.org/en/) (to run this project locally)
-- [**Source code**](https://github.com/yuran1811/chv-themis/releases/tag/v1.0.0), or just clone it by using this command:
-
-```bash
-git clone https://github.com/yuran1811/chv-themis.git
-```
+- [**Download the latest version of `chv-themis.zip`**](https://github.com/yuran1811/chv-themis/releases)
 
 #### Step 2: Prepare
 
-- Extract the source code
+- Extract file `chv-themis.zip`
 - Open the extracted folder
 - Open cmd and run this command to init project
 
