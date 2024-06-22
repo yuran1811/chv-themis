@@ -6,9 +6,6 @@
 
 -   Mở file ".env" và thay đổi các đường dẫn của chính bạn
 
--   Cổng máy chủ:
-    PORT: (mặc định là 1811)
-
 -   Các đường dẫn mặc định khi không được cấu hình:
 
     -   SUBMISSIONS_DIR: ./src/resources/uploads
@@ -20,16 +17,13 @@
 -   Chế độ chấm bài (offline và online):
     RANKING_MODE: off / onl (mặc định là "off")
 
--   Thay đổi danh sách tài khoản của ứng dụng tại [**đây**](./src/db/accounts.json)
+-   Thay đổi danh sách tài khoản của ứng dụng tại [**đây**](../src/db/accounts.json)
 
 ---
 
 ## Change the folders' path
 
 -   Open ".env" file and change the directory for each folder you want
-
--   Server Port:
-    PORT: (Default: 1811)
 
 -   Default directories:
 
@@ -42,4 +36,4 @@
 -   Defaul Mode:
     RANKING_MODE: off / onl (Default: off)
 
--   Change the accounts list [**here**](./src/db/accounts.json)
+-   Change the accounts list [**here**](../src/db/accounts.json)

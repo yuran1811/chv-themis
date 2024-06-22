@@ -1,12 +1,14 @@
 {
 	"name": "chv-themis",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Themis Web Interface - CHV",
 	"main": "src/index.js",
 	"type": "module",
 	"scripts": {
 		"start": "node src/index.js",
-		"test": "nodemon src/index.js"
+		"test": "nodemon src/index.js",
+		"tw": "npx tailwindcss -i public/css/tw.css -o public/css/tw-minify.css --watch",
+		"sass": "sass --watch public/scss/index.scss public/css/index.css --style compressed"
 	},
 	"keywords": [
 		"interface",
@@ -15,7 +17,9 @@
 	"author": "yuran1811",
 	"license": "MIT",
 	"devDependencies": {
-		"nodemon": "^2.0.15"
+		"nodemon": "^2.0.15",
+		"sass": "^1.77.6",
+		"tailwindcss": "^3.4.4"
 	},
 	"dependencies": {
 		"chokidar": "^3.5.3",

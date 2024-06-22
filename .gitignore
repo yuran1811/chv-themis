@@ -1,6 +1,6 @@
 node_modules
-tasks
 Logs
-_rankings
-contestants
-uploads
+**/tasks
+**/_rankings
+**/contestants
+**/uploads
