@@ -1,1 +1,5 @@
 .prettierrc
+
+**/js/*.min.*
+**/css/*.min.*
+**/css/*.css.map

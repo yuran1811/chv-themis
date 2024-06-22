@@ -2,7 +2,12 @@ node_modules
 
 .env.*
 
+**/js/*.min.*
+**/css/*.min.*
+**/css/*.css.map
+
 **/tasks
+**/_problems
 **/_rankings
 **/contestants
 **/uploads

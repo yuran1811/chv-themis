@@ -15,6 +15,7 @@ class UsersController {
       res.cookie('isAuth', 0);
       res.cookie('user', 'null');
     }
+
     res.redirect('/');
   }
 }

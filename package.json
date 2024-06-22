@@ -7,8 +7,12 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "nodemon src/index.js",
-    "tw": "npx tailwindcss -i public/css/tw.css -o public/css/tw.min.css --watch",
-    "sass": "sass --watch public/scss/index.scss public/css/index.css --style compressed"
+    "tw": "npx tailwindcss -i public/css/tw.css -o public/static/css/tw.min.css -m",
+    "tw:w": "yarn tw -w",
+    "sass": "sass public/scss/index.scss public/static/css/index.css --style compressed",
+    "sass:w": "yarn sass -w",
+    "zip": "zip -9 -r chv-themis.zip . -i \"public/static/*\" \"src\" \"md\" \".env\" \".LICENSE\" \"run.cmd\" \"*.json\" \"*.md\" ",
+    "build": "yarn tw && yarn sass && yarn zip"
   },
   "keywords": [
     "interface",

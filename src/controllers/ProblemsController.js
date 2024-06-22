@@ -6,9 +6,9 @@ class ProblemsController {
     res.render('problems', {
       ...utils.defaultEJS,
       navStatus: 'problems',
-      problems: utils.getProblemList(),
       isAuth: utils.getAuthStatus(req),
       user: utils.getAuthUser(req),
+      problems: utils.getProblemList(),
     });
   }
 

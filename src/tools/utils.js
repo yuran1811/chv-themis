@@ -271,13 +271,14 @@ export const getRankOff = () => {
 
       for (let j = i + 1; j < statusList.length; j++) {
         cvertData(statusList, j);
-        if (!statusList[j][1]?.r) list.push(statusList[j][1].v);
+        if (!statusList[j][1]?.r) list.push(+statusList[j][1].v.toPrecision(2));
         else {
           i = j - 1;
           break;
         }
       }
-      const score = list.reduce((sum, _) => sum + _, 0) - list[list.length - 1];
+
+      const score = +(list.reduce((sum, _) => sum + _, 0) - list[list.length - 1]).toPrecision(2);
       status.push({ name, list, score });
     }
   }
@@ -355,7 +356,7 @@ export const getRankingData = () => {
 };
 
 export const getUserAccounts = (req) => {
-  const filePath = resolve(__dirname, '../', 'db', 'accounts.json');
+  const filePath = resolve(__dirname, '../db/accounts.json');
   const accounts = JSON.parse(_fs.f.read(filePath));
   return accounts;
 };

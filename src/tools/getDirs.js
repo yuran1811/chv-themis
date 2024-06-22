@@ -12,20 +12,18 @@ XLSX.set_cptable(cpexcel);
 config();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const default_prefix = '../../resources';
 
-export const RANKING_MODE = process.env.RANKING_MODE || 'off';
+export const PROBLEMS_DIR = process.env.PROBLEMS_DIR || resolve(__dirname, default_prefix, '_problems');
+export const RANKING_DIR = process.env.RANKING_DIR || resolve(__dirname, default_prefix, '_rankings');
 
-export const PROBLEMS_DIR = process.env.PROBLEMS_DIR || resolve(__dirname, '../public/_problems');
-
-export const SUBMISSIONS_DIR = process.env.SUBMISSIONS_DIR || resolve(__dirname, '../resources/uploads');
-
-export const RANKING_DIR = process.env.RANKING_DIR || resolve(__dirname, '../resources/_rankings');
-
-export const CONTESTANTS_DIR = process.env.CONTESTANTS_DIR || resolve(__dirname, '../resources/contestants');
-
-export const TASKS_DIR = process.env.TASKS_DIR || resolve(__dirname, '../resources/tasks');
+export const SUBMISSIONS_DIR = process.env.SUBMISSIONS_DIR || resolve(__dirname, default_prefix, 'uploads');
+export const CONTESTANTS_DIR = process.env.CONTESTANTS_DIR || resolve(__dirname, default_prefix, 'contestants');
+export const TASKS_DIR = process.env.TASKS_DIR || resolve(__dirname, default_prefix, 'tasks');
 
 export const LOGS_DIR = resolve(SUBMISSIONS_DIR, 'Logs');
+
+export const RANKING_MODE = process.env.RANKING_MODE || 'off';
 
 (() => {
   [PROBLEMS_DIR, SUBMISSIONS_DIR, RANKING_DIR, CONTESTANTS_DIR, TASKS_DIR, LOGS_DIR].forEach((_) => {
