@@ -25,7 +25,7 @@ jobs:
           yarn build
 
       - name: Zip Folder
-        run: zip -9 -r ${{ github.event.repository.name }}.zip . -i "node_modules/*" "public/static/*" "src/*" "md/*" ".env" ".LICENSE" "run.cmd" "*.json" "*.md"
+        run: yarn zip
 
       - name: Generate release tag
         id: generate_release_tag
