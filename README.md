@@ -23,8 +23,15 @@
 ## Screenshots
 
 <div style="display:flex;gap:12px;justify-content:center">
-	<img src="" style="width:45%;max-width:380px">
-	<img src="" style="width:45%;max-width:380px">
+	<img src="./public/screenshots/home.png" style="width:45%;max-width:380px">
+	<img src="./public/screenshots/about.png" style="width:45%;max-width:380px">
+</div>
+<div style="display:flex;gap:12px;justify-content:center">
+	<img src="./public/screenshots/ranking.png" style="width:45%;max-width:380px">
+	<img src="./public/screenshots/problems.png" style="width:45%;max-width:380px">
+</div>
+<div style="display:flex;gap:12px;justify-content:center">
+	<img src="./public/screenshots/code-editor.png" style="width:45%;max-width:380px">
 </div>
 
 ## Quick Start

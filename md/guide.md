@@ -17,13 +17,13 @@
 - Mở thư mục `chv-themis` vừa giải nén
 - Mở `cmd` tại thư mục vừa mở và chạy lệnh dưới đây để tải về các package
 
-```
+```bash
 yarn
 ```
 
 #### Bước 3: Hosting
 
-- Mỗi lần host chỉ cần chạy file "run.cmd" (nháy đúp chuột để chạy file .cmd) và không cần thêm bất kì thao tác nào
+- Mỗi lần host chỉ cần chạy lệnh `yarn dev` và không cần thêm bất kì thao tác nào
 
 #### Xem cách cấu hình đường dẫn thư mục tại [**đây**](./md/path-config.md)
 
@@ -42,16 +42,12 @@ yarn
 - Open the extracted folder
 - Open cmd and run this command to init project
 
-```
+```bash
 yarn
 ```
 
 #### Step 3: Hosting
 
-- Just run "run.cmd" to start server in anytime, or run this command
-
-```bash
-yarn test
-```
+- Just run `yarn dev` to start server in anytime
 
 #### Config directories' path [**here**](./md/path-config.md)
