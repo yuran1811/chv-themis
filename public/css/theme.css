@@ -1,0 +1,44 @@
+@font-face {
+  src: url('/fonts/FiraCode-Regular.ttf') format('truetype');
+  font-family: 'FiraCode';
+  font-weight: normal;
+  font-display: swap;
+}
+
+:root {
+  --scroll-w: 8px;
+}
+
+@theme {
+  --font-fira: 'FiraCode', monospace;
+
+  --breakpoint-tiny: 20rem;
+  --breakpoint-ss: 24rem;
+  --breakpoint-xs: 32rem;
+
+  --gd-1: linear-gradient(to right, #5e42a6, #b74e91);
+  --gd-2: linear-gradient(319deg, #b199f3, #e59ebc);
+  --gd-3: linear-gradient(45deg, #bd71d0, #d8707e);
+  --gd-4: linear-gradient(347deg, #fbda61, #ff5acd);
+  --gd-5: linear-gradient(-45deg, #d9afd9, #97d9e1);
+  --gd-6: linear-gradient(-45deg, #f8badc, #ff6e7f);
+  --gd-7: linear-gradient(-45deg, #97d9e1, #ff6e7f);
+  --gd-8: linear-gradient(-45deg, #6844d8, #9bebf5);
+  --gd-9: linear-gradient(to right, #12fff7, #b3ffab);
+  --gd-10: linear-gradient(45deg, #fc6c8f, #ffb86c);
+  --gd-11: linear-gradient(45deg, #feb248, #fa4e60);
+  --gd-12: linear-gradient(-45deg, #b46fff, #f53b67);
+  --gd-13: linear-gradient(45deg, #4ac29a, #bdfff3);
+  --gd-14: linear-gradient(90deg, #24c6dc, #837cca);
+  --gd-15: linear-gradient(45deg, #5eaaea, #56e2cc);
+
+  --g-1: linear-gradient(rgba(196, 203, 245, 0.5), transparent);
+  --g-2: linear-gradient(#3062a3, #19549f);
+  --g-3: linear-gradient(#3c52d9, #0c1838);
+  --g-4: linear-gradient(#253575, #162561);
+  --g-5: linear-gradient(#334679, #162561);
+  --g-6: linear-gradient(#334679, #0c1838);
+  --g-7: linear-gradient(#1b275a, #0e1434);
+  --g-8: linear-gradient(to right, transparent, #2ef2ff, transparent);
+  --g-9: linear-gradient(#080d27, transparent);
+}

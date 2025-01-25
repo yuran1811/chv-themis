@@ -1,13 +1,15 @@
-import * as utils from '../tools/utils.js';
+import { processEJSData } from '../utils/index.js';
 
 class AdminController {
   // [GET] /admin/dashboard
-  admin(req, res, next) {
-    res.render('admin', {
-      ...utils.defaultEJS,
-      isAuth: utils.getAuthStatus(req),
-      user: utils.getAuthUser(req),
-    });
+  dashboard(req, res, next) {
+    if (!!req?.user?.isAdmin)
+      res.render('admin', {
+        ...processEJSData(req),
+        navStatus: 'admin/dashboard',
+        docSubTitle: 'Dashboard',
+      });
+    else res.redirect('/');
   }
 }
 

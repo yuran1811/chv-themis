@@ -1,0 +1,101 @@
+<header
+  class="tw:sticky tw:left-0 tw:top-0 tw:z-50 tw:w-full tw:transition-all tw:duration-500 tw:bg-s1 tw:py-4 tw:backdrop-blur-[8px]"
+>
+  <div class="tw:container tw:flex tw:h-14 tw:items-center tw:max-lg:px-5">
+    <div class="tw:flex tw:flex-wrap tw:items-center tw:justify-center tw:w-full tw:h-full">
+      <a href="/" class="tw:flexcenter tw:inline-block tw:min-md:hidden">
+        <img src="/img/logo_100x100.png" alt="Logo" width="50" height="50" />
+      </a>
+
+      <nav class="tw:flex-1 tw:flexcenter">
+        <label
+          for="menu-toggle"
+          class="tw:hidden tw:max-md:z-50 tw:max-md:inline-block tw:absolute tw:cursor-pointer tw:right-0 tw:mr-8 tw:text-white tw:scale-125"
+        >
+          <i class="bi bi-list tw:hidden tw:max-md:inline-block"></i>
+        </label>
+        <input
+          id="menu-toggle"
+          type="checkbox"
+          class="tw:peer tw:hidden"
+          onchange="document.querySelector('[role=right-menu]').classList.toggle('tw:max-ss:hidden', !this.checked);"
+        />
+        <div
+          class="tw:max-md:absolute tw:max-md:h-max tw:max-md:py-4 tw:max-md:w-screen tw:max-md:hidden tw:max-md:peer-checked:flex tw:max-md:overflow-hidden tw:max-md:bg-s1 tw:max-md:inset-0 tw:max-md:top-20 tw:max-md:flexcenter"
+        >
+          <ul class="tw:flex tw:flex-wrap tw:justify-start tw:gap-4">
+            <% if (isAdmin) { %>
+            <li>
+              <a
+                href="/admin/dashboard"
+                class="<% if (navStatus == 'admin/dashboard') { %>text-white fw-bold<% } else { %>secondary<% } %>"
+              >
+                Dashboard
+              </a>
+            </li>
+            <%  } %>
+
+            <% [ [ "home", "/", "Home"], [ "about", "/about", "About"], [ "ranking", "/ranking", "Ranking"], [
+            "problems", "/problems/list", "Problems"] ].forEach( ([slug, href, text]) => { %>
+            <li>
+              <a
+                href="<%= href %>"
+                class="<% if (navStatus == slug) { %>text-white fw-bold<% } else { %>secondary<% } %>"
+              >
+                <%= text %>
+              </a>
+            </li>
+            <% }) %>
+          </ul>
+        </div>
+      </nav>
+
+      <a href="/" class="tw:flexcenter tw:hidden tw:min-md:inline-block tw:px-4">
+        <img src="/img/logo_100x100.png" alt="Logo" width="50" height="50" />
+      </a>
+
+      <div
+        role="right-menu"
+        style="--top-offset: 120px"
+        class="tw:flex-1 tw:flex tw:max-ss:flex-wrap tw:justify-end tw:items-center tw:gap-2 tw:h-full tw:max-md:pr-14 tw:max-ss:hidden tw:max-ss:absolute tw:max-ss:top-(--top-offset,30) tw:max-ss:px-6 tw:max-ss:mx-auto tw:max-ss:justify-between tw:max-ss:left-0 tw:max-ss:w-screen tw:max-ss:bg-s1 tw:max-ss:z-50 tw:max-ss:h-max tw:max-ss:py-4"
+      >
+        <% if (!user) { %>
+        <div
+          class="tw:flex tw:justify-end tw:items-center tw:h-full tw:*:w-24 tw:*:h-full tw:*:relative tw:*:flexcenter tw:max-ss:hidden"
+        >
+          <%- include('../partials/sign-up') -%>
+          <%- include('../partials/sign-in') -%>
+        </div>
+        <div class="tw:flexcenter tw:mx-auto tw:h-full tw:min-ss:hidden tw:gap-2">
+          <a href="/auth/signup" class="">
+            <span class="tw:font-semibold tw:w-max tw:px-4 tw:py-2 tw:text-white tw:inline-block"> Sign up </span>
+          </a>
+          <a href="/auth/login" class="">
+            <span
+              class="tw:font-semibold tw:w-max tw:px-4 tw:py-2 tw:text-white tw:border-2 tw:border-white tw:rounded-xl tw:inline-block"
+            >
+              Sign in
+            </span>
+          </a>
+        </div>
+        <% } else { %>
+        <%- include('../partials/submit') -%>
+        <% }
+			%>
+      </div>
+    </div>
+  </div>
+  <script>
+    addEventListener('resize', () => {
+      if (window.innerWidth >= 384) return;
+      const { top, height } = document.querySelector('header nav ul').getBoundingClientRect();
+      document.querySelector('[role=right-menu]').style = `--top-offset:${top + height}px`;
+    });
+
+    addEventListener('click', (e) => {
+      if (e.target.closest('header nav') || e.target.closest('[role=right-menu]')) return;
+      document.querySelector('#menu-toggle').checked = false;
+      document.querySelector('[role=right-menu]').classList.add('tw:max-ss:hidden');
+    });
+  </script>
+</header>

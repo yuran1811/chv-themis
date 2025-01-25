@@ -2,6 +2,8 @@ node_modules
 
 .env.*
 
+/db/*.db
+
 **/js/*.min.*
 **/css/*.min.*
 **/css/*.css.map

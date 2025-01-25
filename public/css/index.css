@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@config "../../tailwind.config.js";
+@import 'tailwindcss';
+@import './theme.css';
+@import './utilities.css';
+
+@layer base {
+  * {
+    @apply tw:box-border tw:select-none;
+
+    &::-webkit-scrollbar {
+      @apply tw:w-(--scroll-w) tw:h-(--scroll-w);
+    }
+    &::-webkit-scrollbar-thumb {
+      @apply tw:rounded-sm tw:bg-s3 tw:border-2 tw:border-white tw:cursor-pointer;
+    }
+  }
+
+  body {
+    @apply tw:scroll-smooth tw:antialiased tw:base tw:font-normal tw:tracking-[-0.03em] tw:overflow-x-hidden;
+  }
+
+  a {
+    @apply tw:!no-underline;
+  }
+
+  img {
+    @apply tw:block tw:max-w-full;
+  }
+
+  button {
+    @apply tw:bg-none tw:tracking-[-0.03em];
+  }
+
+  input {
+    @apply tw:tracking-[-0.03em];
+  }
+}
+
+.bi {
+  @apply tw:!body-2;
+}
+
+#app {
+  @apply tw:relative tw:w-screen;
+
+  header {
+    ul li a {
+      @apply tw:font-semibold;
+    }
+
+    form {
+      input[type='file'] {
+        @apply tw:px-2 tw:py-2 tw:w-32 tw:cursor-pointer;
+        &::file-selector-button {
+          @apply tw:hidden;
+        }
+      }
+    }
+
+    .btn {
+      @apply tw:size-10 tw:rounded-full tw:flexcenter;
+    }
+  }
+
+  main {
+    @apply tw:relative tw:w-full tw:h-full tw:min-h-[calc(100vh-16rem)];
+
+    .link-hl {
+      @apply tw:link-hl tw:bg-clip-text tw:gd-3 tw:text-transparent tw:font-bold tw:hover:text-white tw:before:gd-3 tw:transition-colors tw:duration-200;
+    }
+
+    .ranking-table {
+      @apply tw:relative tw:w-max tw:container tw:mx-auto tw:max-h-512 tw:overflow-auto tw:!p-0;
+
+      table.last-table {
+        --box-shadow-sz: 2px;
+
+        @apply tw:w-full;
+
+        &,
+        * {
+          @apply tw:text-center;
+        }
+
+        & > :not(:first-child) {
+          @apply tw:border-t-0;
+        }
+
+        .fixed-col {
+          @apply tw:sticky tw:bg-white tw:left-0;
+        }
+
+        th.tw\:mcoln-1 {
+          box-shadow: inset var(--box-shadow-sz) 0px 0px rgb(200, 200, 200);
+        }
+
+        th.tw\:mcol-1 {
+          @apply tw:text-ellipsis tw:!min-w-24 tw:text-left;
+          box-shadow: inset var(--box-shadow-sz) 0px 0px rgb(200, 200, 200);
+        }
+
+        th[scope='col'],
+        td[scope='row'] {
+          @apply tw:max-md:!max-w-24 tw:text-ellipsis tw:overflow-hidden;
+        }
+
+        thead {
+          @apply tw:sticky tw:top-0 tw:bg-white tw:z-1;
+
+          tr {
+            box-shadow: 0px 3px rgb(200, 200, 200);
+          }
+        }
+
+        tbody {
+          @apply tw:py-3;
+        }
+      }
+    }
+
+    #code-editor {
+      @apply tw:container tw:w-full tw:max-xs:h-[calc(100%-24rem)] tw:h-[calc(100vh-20rem)] tw:min-h-400 tw:pt-4 tw:bg-[#1e1e1e];
+
+      & *,
+      & {
+        @apply tw:font-fira tw:transition-none;
+      }
+
+      & > .monaco-editor.vs-dark > .overflow-guard > .margin {
+        @apply tw:**:!w-10 tw:!w-10;
+
+        & .line-numbers {
+          @apply tw:text-center;
+        }
+      }
+
+      & .monaco-scrollable-element {
+        @apply tw:!left-10 tw:!w-[calc(100%-2.5rem)];
+      }
+    }
+  }
+}

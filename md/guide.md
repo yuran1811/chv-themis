@@ -1,33 +1,57 @@
-# Guide
+# CHV Themis
+
+## Themis Web Interface
 
 ---
 
-## Thay đổi đường dẫn các thư mục
+### Hướng dẫn sử dụng
 
-- Mở file ".env" và thay đổi các đường dẫn của chính bạn
-- Các đường dẫn mặc định khi không được cấu hình:
-    - PROBLEMS_DIR: /resources/\_problems
-    - RANKING_DIR: /resources/\_rankings
-    - SUBMISSIONS_DIR: /resources/uploads
-    - CONTESTANTS_DIR: /resources/contestants
-    - TASKS_DIR = /resources/tasks
-- Chế độ chấm bài (offline và online):
-    - RANKING_MODE: off / onl (mặc định là "off")
-        - "off": Chế độ chấm bài offline sẽ lấy rank từ file excel xuất từ themis
-        - "onl": Chế độ chấm bài online sẽ lấy rank từ lịch sử nộp bài trên web
-- Thay đổi danh sách tài khoản của ứng dụng tại [**đây**](../src/db/accounts.json)
+#### Bước 1: Tải tài nguyên
+
+- [**NodeJS**](https://nodejs.org/en/) (dùng để chạy ứng dụng)
+- [**Tải file `chv-themis.zip` ở phiên bản mới nhất**](https://github.com/yuran1811/chv-themis/releases)
+
+#### Bước 2: Các bước chuẩn bị để chạy ứng dụng
+
+- Giải nén file `chv-themis.zip` vừa tải
+- Mở thư mục `chv-themis` vừa giải nén
+- Mở `cmd` tại thư mục vừa mở và chạy lệnh dưới đây để tải về các package
+
+```
+yarn
+```
+
+#### Bước 3: Hosting
+
+- Mỗi lần host chỉ cần chạy file "run.cmd" (nháy đúp chuột để chạy file .cmd) và không cần thêm bất kì thao tác nào
+
+#### Xem cách cấu hình đường dẫn thư mục tại [**đây**](./md/path-config.md)
 
 ---
 
-## Change the folders' path
+### Guide
 
-- Open ".env" file and change the directory for each folder you want
-- Default directories:
-    - PROBLEMS_DIR: /resources/\_problems
-    - RANKING_DIR: /resources/\_rankings
-    - SUBMISSIONS_DIR: /resources/uploads
-    - CONTESTANTS_DIR: /resources/contestants
-    - TASKS_DIR = /resources/tasks
-- Defaul Mode:
-    - RANKING_MODE: off / onl (Default: off)
-- Change the accounts list [**here**](../src/db/accounts.json)
+#### Step 1: Download
+
+- [**NodeJS**](https://nodejs.org/en/) (to run this project locally)
+- [**Download the latest version of `chv-themis.zip`**](https://github.com/yuran1811/chv-themis/releases)
+
+#### Step 2: Prepare
+
+- Extract file `chv-themis.zip`
+- Open the extracted folder
+- Open cmd and run this command to init project
+
+```
+yarn
+```
+
+#### Step 3: Hosting
+
+- Just run "run.cmd" to start server in anytime, or run this command
+
+```bash
+yarn test
+```
+
+#### Config directories' path [**here**](./md/path-config.md)

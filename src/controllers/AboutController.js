@@ -1,13 +1,12 @@
-import * as utils from '../tools/utils.js';
+import { processEJSData } from '../utils/index.js';
 
 class AboutController {
   // [GET] /about
-  show(req, res, next) {
+  index(req, res, next) {
     res.render('about', {
-      ...utils.defaultEJS,
+      ...processEJSData(req),
       navStatus: 'about',
-      isAuth: utils.getAuthStatus(req),
-      user: utils.getAuthUser(req),
+      docSubTitle: 'About',
     });
   }
 }

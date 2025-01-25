@@ -1,31 +1,32 @@
-<h2 class="p-3 m-3">Last update: <%= ModifiedDate %></h2>
+<h2 class="tw:px-4 tw:py-2 tw:mt-2 tw:text-center tw:font-semibold">Last update: <%= ModifiedDate %></h2>
 <div class="ranking-table">
   <table class="table table-hover table-bordered last-table">
     <thead>
       <tr>
-        <th class="fixed-col mcol-1" scope="col">Name</th>
+        <th class="fixed-col tw:mcol-1" scope="col">Name</th>
 
         <% tasks.forEach((_) => { %>
         <th scope="col"><%= _ %></th>
         <% }) %>
 
-        <th class="fixed-col mcol-n1" scope="col">Total</th>
+        <th class="fixed-col tw:mcoln-1" scope="col">Total</th>
       </tr>
     </thead>
     <tbody>
       <% status.forEach((_, idx) => { %>
       <tr>
-        <th class="fixed-col mcol-1" scope="row" style="color: <%= _.color %>"><%= idx + 1 %>. <%= _.name %></th>
+        <th class="fixed-col tw:mcol-1" scope="row" style="color: <%= _.color %>"><%= idx + 1 %>. <%= _.name %></th>
 
-        <% _.list.forEach((score, idx) => { if (idx == _.list.length - 1 && _.list.length - 1 == tasks.length) { %>
-        <th class="fixed-col mcol-n1" scope="row" style="color: <%= _.color %>"><%= _.score %></th>
+        <% _.list.forEach(([score, levelColor], idx) => { if (idx == _.list.length - 1 && _.list.length - 1 ==
+        tasks.length) { %>
+        <th class="fixed-col tw:mcoln-1" scope="row" style="color: <%= _.color %>"><%= _.totScore %></th>
         <% } else { %>
-        <td scope="row"><%= score %></td>
+        <td scope="row" style="background-color: <%= levelColor %>"><%= score %></td>
         <% } }) %>
 
         <% for (var i = _.list.length; i < tasks.length; i++)
 					if (i == tasks.length - 1) { %>
-        <td class="fixed-col mcol-n1" scope="row">0</td>
+        <td class="fixed-col tw:mcoln-1" scope="row">0</td>
         <% } else { %>
         <td scope="row">0</td>
         <% }

@@ -1,52 +1,25 @@
-<div class="container logs-container mt-5">
-  <div class="title">Submissions Logs</div>
-
-  <ul class="list-group log-list" id="<%= user %>-logs">
+<div class="logs-container tw:container tw:py-4">
+  <div class="tw:h5 tw:text-center tw:py-4">Submissions Log</div>
+  <ul
+    class="tw:mt-3 tw:grid tw:gap-3 tw:grid-cols-4 tw:max-lg:grid-cols-3 tw:max-sm:grid-cols-2 tw:max-xs:grid-cols-1"
+    id="<%= user.username %>-logs"
+  >
     <% logs.forEach((_) => { if (_.name) { %>
-    <li class="list-group-item log-item accordion" id="<%= _.user%>-<%= _.name%>">
-      <div class="accordion-item w-100">
-        <h2 class="accordion-header" id="<%= _.user%>-<%= _.name%>-heading">
-          <button
-            class="accordion-button collapsed"
-            type="button"
-            aria-expanded="true"
-            data-bs-toggle="collapse"
-            data-bs-target="#<%= _.user%>-<%= _.name%>-collapse"
-            aria-controls="<%= _.user%>-<%= _.name%>-collapse"
-          >
-            <div class="ms-2 me-auto">
-              <div class="fw-bold"><%= _?.name %> - <%= _.score %></div>
-            </div>
-          </button>
-        </h2>
-
+    <li id="<%= _.user%>-<%= _.name%>">
+      <details class="tw:rounded-lg tw:border tw:max-w-sm tw:border-black/10 tw:open:bg-gray-100 tw:relative">
+        <summary class="tw:rounded-lg tw:font-semibold tw:p-3" style="background-color: <%= _?.color %>">
+          <%= _?.name %> - <%= _.score %>
+        </summary>
         <div
-          id="<%= _.user%>-<%= _.name%>-collapse"
-          class="accordion-collapse collapse"
-          aria-labelledby="<%= _.user%>-<%= _.name%>-heading"
-          data-bs-parent="#<%= user%>-logs"
+          class="tw:mt-2 tw:px-2 tw:font-normal tw:overflow-hidden tw:absolute tw:top-10 tw:left-0 tw:right-0 tw:z-4 tw:bg-gray-200 tw:max-h-52 tw:overflow-y-auto"
         >
-          <div class="accordion-body">
-            <div class="content">
-              <!-- <% for (var i=0; i<_?.content.length; i+=3) { { %>
-									<div class="log-ans">
-										<p><%= _?.content[i] %></p>
-										<p><%= _?.content[i + 1] %></p>
-										<p class="fw-bold"><%= _?.content[i + 2] %></p>
-									</div>
-									<br />
-									<% } } %> -->
-
-              <div class="log-ans">
-                <% _?.content.forEach(_ => { %>
-                <p><%= _ %></p>
-                <% }) %>
-              </div>
-            </div>
-          </div>
+          <% _?.content.forEach(_ => { %>
+          <p class="tw:text-ellipsis"><%= _ %></p>
+          <% }) %>
         </div>
-      </div>
+      </details>
     </li>
+
     <% } }) %>
   </ul>
 </div>

@@ -1,14 +1,13 @@
-import * as utils from '../tools/utils.js';
+import { getProblemList, processEJSData } from '../utils/index.js';
 
 class ProblemsController {
   // [GET] /problems/list
   list(req, res, next) {
     res.render('problems', {
-      ...utils.defaultEJS,
+      ...processEJSData(req),
       navStatus: 'problems',
-      isAuth: utils.getAuthStatus(req),
-      user: utils.getAuthUser(req),
-      problems: utils.getProblemList(),
+      docSubTitle: 'Problems',
+      problems: getProblemList(),
     });
   }
 
@@ -20,6 +19,7 @@ class ProblemsController {
       error.httpStatusCode = 400;
       return next(error);
     }
+
     res.redirect('/');
   }
 }

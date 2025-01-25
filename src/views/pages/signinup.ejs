@@ -1,0 +1,47 @@
+<% if (typeof isSignIn !== 'undefined') { %>
+<div
+  class="tw:group tw:flexcentercol tw:cursor-pointer tw:font-bold tw:px-4 tw:py-10 tw:rounded-lg tw:border-2 tw:border-solid tw:border-white"
+>
+  <p class="tw:h4">Sign <%= isSignIn ? 'In' : 'Up' %></p>
+  <div class="tw:flex tw:relative tw:justify-center tw:items-center tw:z-10 tw:w-32 tw:pt-4">
+    <form
+      action="/auth/<%= isSignIn ? 'login/password' : 'signup' %>"
+      method="POST"
+      autocomplete="off"
+      class="tw:flexcentercol tw:gap-2 tw:[&_input]:!w-64"
+    >
+      <input required name="username" type="text" class="form-control" id="username-signinup" placeholder="Username" />
+      <input
+        required
+        name="password"
+        type="password"
+        class="form-control"
+        id="password-signinup"
+        placeholder="Password"
+      />
+      <% if (!isSignIn) {%>
+      <input
+        required
+        name="confirmedPassword"
+        type="password"
+        class="form-control"
+        id="password-confirm-signinup"
+        placeholder="Confirm Password"
+      />
+      <%}
+      %>
+      <button
+        class="tw:px-4 tw:py-2 tw:font-semibold tw:!rounded-lg tw:bg-sky-200 tw:text-sky-700 tw:hover:bg-sky-600 tw:hover:text-sky-200 tw:transition-all tw:duration-200"
+        type="submit"
+      >
+        <%= isSignIn ? 'Process' : 'Create' %>
+      </button>
+    </form>
+
+    <% if (typeof error !== 'undefined') { %>
+    <p class="tw:text-red-200"><%= error %></p>
+    <%} %>
+  </div>
+</div>
+<%}
+%>

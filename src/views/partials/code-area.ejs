@@ -1,6 +1,6 @@
-<div class="container code-container">
-  <form class="submit-code-form" method="POST" action="/submit-code/<%= user %>" enctype="multipart/form-datas">
-    <div class="input-group mb-3 options-container">
+<div class="tw:container code-container tw:py-4">
+  <form class="submit-code-form" method="POST" action="/submit/<%= user.username %>" enctype="multipart/form-datas">
+    <div class="input-group mb-3 tw:max-w-md tw:mx-auto">
       <select class="form-select" id="problem" name="problem">
         <% tasks.forEach(_ => { %>
         <option value="<%= _ %>"><%= _ %></option>

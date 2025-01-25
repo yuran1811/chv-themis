@@ -1,41 +1,44 @@
 {
   "name": "chv-themis",
-  "version": "1.0.1",
-  "description": "Themis Web Interface - CHV",
-  "main": "src/index.js",
-  "type": "module",
-  "scripts": {
-    "start": "node src/index.js",
-    "test": "nodemon src/index.js",
-    "tw": "npx tailwindcss -i public/css/tw.css -o public/static/css/tw.min.css -m",
-    "tw:w": "yarn tw -w",
-    "sass": "sass public/scss/index.scss public/static/css/index.css --style compressed",
-    "sass:w": "yarn sass -w",
-    "zip": "zip -9 -r chv-themis.zip . -i \"node_modules/*\" \"public/static/*\" \"src/*\" \"md/*\" \".env\" \".LICENSE\" \"run.cmd\" \"*.json\" \"*.md\"",
-    "build": "yarn tw && yarn sass"
-  },
+  "description": "CHV Themis Web Interface",
   "keywords": [
-    "interface",
-    "themis"
+    "themis",
+    "online-judge"
   ],
+  "version": "1.1.1",
+  "type": "module",
   "author": "yuran1811",
   "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "tw": "npx tailwindcss -i public/css/index.css -o public/static/css/index.min.css -m",
+    "tw:w": "yarn tw -w",
+    "zip": "zip -9 -r chv-themis.zip . -i \"node_modules/monaco-editor/min\" \"public/static/*\" \"src/*\" \"md/*\" \".env\" \".LICENSE\" \"run.cmd\" \"*.json\" \"*.md\"",
+    "build": "yarn tw"
+  },
   "devDependencies": {
-    "nodemon": "^2.0.15",
+    "@tailwindcss/cli": "^4.0.0",
+    "nodemon": "^3.1.9",
     "prettier": "^3.3.2",
     "prettier-plugin-ejs": "^1.0.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "sass": "^1.77.6",
-    "tailwindcss": "^3.4.4"
+    "tailwindcss": "^4.0.0"
   },
   "dependencies": {
-    "chokidar": "^3.5.3",
+    "connect-ensure-login": "^0.1.1",
+    "connect-sqlite3": "^0.9.15",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
-    "monaco-editor": "^0.33.0",
-    "multer": "^1.4.4",
+    "express-session": "^1.18.1",
+    "mkdirp": "^3.0.1",
+    "monaco-editor": "^0.52.2",
+    "multer": "^1.4.5-lts.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "xlsx": "^0.18.5"
   }
 }

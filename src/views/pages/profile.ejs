@@ -1,0 +1,30 @@
+<div class="tw:container tw:mx-auto tw:px-4 tw:py-8">
+  <div
+    class="tw:flex tw:flex-col tw:justify-center tw:max-w-xs tw:p-6 tw:shadow-md tw:rounded-xl tw:sm:px-12 tw:mx-auto"
+  >
+    <div class="tw:w-32 tw:h-32 tw:mx-auto tw:rounded-full tw:aspect-square tw:gd-3"></div>
+    <div class="tw:space-y-4 tw:text-center tw:divide-y">
+      <div class="tw:my-2 tw:space-y-1">
+        <h2 class="tw:text-xl tw:font-semibold tw:sm:text-2xl"><%= user.username %></h2>
+        <p class="tw:px-5 tw:text-xs tw:sm:text-base">ID: <%= user.id %></p>
+      </div>
+    </div>
+
+    <div>
+      <form action="/profile/change-password" method="POST" autocomplete="off" class="tw:flexcentercol tw:gap-2">
+        <input required name="oldPassword" type="password" class="form-control" placeholder="Old Password" />
+        <input required name="newPassword" type="password" class="form-control" placeholder="New Password" />
+        <button
+          class="tw:px-4 tw:py-2 tw:font-semibold tw:!rounded-lg tw:bg-sky-200 tw:text-sky-700 tw:hover:bg-sky-600 tw:hover:text-sky-200 tw:transition-all tw:duration-200"
+          type="submit"
+        >
+          Update
+        </button>
+      </form>
+
+      <% if (typeof success !== 'undefined') { %>
+      <p class="tw:text-green-500 tw:text-center"><%= success %></p>
+      <% } %>
+    </div>
+  </div>
+</div>

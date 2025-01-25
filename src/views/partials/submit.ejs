@@ -1,20 +1,37 @@
-<form class="submit-form" method="POST" action="/problems/submit/<%= user %>" enctype="multipart/form-data">
+<form
+  class="tw:px-2 tw:flexcenter tw:border-x-2 tw:border-solid tw:rounded-md tw:text-white tw:max-xs:gap-3"
+  method="POST"
+  action="/problems/submit/<%= user.username %>"
+  enctype="multipart/form-data"
+>
+  <label for="file-submissions">
+    <i class="bi bi-paperclip tw:scale-125 tw:cursor-pointer"></i>
+  </label>
   <input
     type="file"
     value="Browse"
     name="submissions"
-    class="form-control-file file-upload"
+    id="file-submissions"
+    class="form-control-file tw:max-xs:hidden"
     placeholder="Select file"
-    accept=".cpp, .c, .pas"
+    accept=".cpp,.c,.pas"
     multiple
   />
   <button class="btn btn-primary submit-files" type="submit">
     <i class="bi bi-send"></i>
   </button>
-  <a class="btn btn-info ms-2 submit-code" href="/submit-code">
-    <i class="bi bi-code-slash"></i>
-  </a>
-  <a class="btn btn-primary ms-2 sign-out" href="/">
+</form>
+
+<a class="btn btn-info submit-code" href="/submit">
+  <i class="bi bi-code-slash"></i>
+</a>
+
+<a class="btn tw:gd-2" href="/profile">
+  <i class="bi bi-person-fill"></i>
+</a>
+
+<form action="/auth/logout" method="post">
+  <button class="btn tw:!bg-gray-200" type="submit">
     <i class="bi bi-box-arrow-right"></i>
-  </a>
+  </button>
 </form>

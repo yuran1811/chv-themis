@@ -1,15 +1,12 @@
-import * as utils from '../tools/utils.js';
+import { processEJSData, getLogList } from '../utils/index.js';
 
 class HomeController {
   // [GET] /home
-  show(req, res, next) {
-    const user = utils.getAuthUser(req);
-
+  index(req, res, next) {
     res.render('home', {
-      ...utils.defaultEJS,
-      isAuth: utils.getAuthStatus(req),
-      user,
-      logs: utils.getLogList(user),
+      ...processEJSData(req),
+      navStatus: 'home',
+      logs: getLogList(req?.user),
     });
   }
 }

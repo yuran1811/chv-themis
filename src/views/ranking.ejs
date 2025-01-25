@@ -1,13 +1,1 @@
-<!doctype html>
-<html lang="en">
-  <%- include('./partials/meta/head') %>
-  <body>
-    <div id="app">
-      <%- include('./partials/header') %>
-      <main>
-        <%- include('./partials/table') %>
-      </main>
-      <%- include('./partials/footer') %>
-    </div>
-  </body>
-</html>
+<%- include('./layout/layout', { main: include('./pages/ranking') }) -%>

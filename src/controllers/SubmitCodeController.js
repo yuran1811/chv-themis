@@ -1,25 +1,27 @@
 import { resolve } from 'path';
-import _fs from '../tools/fsHandles.js';
-import * as THEMIS_DIR from '../tools/getDirs.js';
-import * as utils from '../tools/utils.js';
+
+import _fs from '../utils/fsHandles.js';
+import * as THEMIS_DIR from '../utils/getDirs.js';
+import { cvertSubmissionName, getTaskList, processEJSData } from '../utils/index.js';
 
 class SubmitCodeController {
-  // [GET] /submit-code
-  show(req, res, next) {
+  // [GET] /submit
+  index(req, res, next) {
+    if (!req?.user) return res.redirect('/auth/login');
+
     res.render('submit-code', {
-      ...utils.defaultEJS,
+      ...processEJSData(req),
       navStatus: 'submit-code',
-      isAuth: utils.getAuthStatus(req),
-      user: utils.getAuthUser(req),
-      tasks: utils.getTaskList(),
+      docSubTitle: 'Submit',
+      tasks: getTaskList(),
     });
   }
 
-  // [POST] /submit-code/:user
+  // [POST] /submit/:user
   submit(req, res, next) {
     const { submission, problem, lang } = req.body;
 
-    _fs.f.write(resolve(THEMIS_DIR.SUBMISSIONS_DIR, utils.cvertSubmissionName(req, problem, lang)), submission);
+    _fs.f.write(resolve(THEMIS_DIR.SUBMISSIONS_DIR, cvertSubmissionName(req, problem, lang)), submission);
 
     res.redirect('/');
   }

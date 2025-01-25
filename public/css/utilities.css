@@ -1,0 +1,127 @@
+/* START of Typography */
+@utility h-num {
+  @apply tw:font-inter tw:text-[72px] tw:leading-[84px] tw:font-bold;
+}
+
+@utility h1 {
+  @apply tw:text-[84px] tw:leading-[84px] tw:font-black tw:tracking-[-0.03em];
+}
+
+@utility h2 {
+  @apply tw:text-[64px] tw:leading-[64px] tw:font-black;
+}
+
+@utility h3 {
+  @apply tw:text-[48px] tw:leading-[56px] tw:font-semibold tw:tracking-[-0.02em];
+}
+
+@utility h4 {
+  @apply tw:text-[40px] tw:leading-[52px] tw:font-semibold;
+}
+
+@utility h5 {
+  @apply tw:text-[32px] tw:leading-[40px] tw:font-semibold;
+}
+
+@utility h6 {
+  @apply tw:text-[24px] tw:leading-[36px] tw:font-medium;
+}
+
+@utility body-1 {
+  @apply tw:text-[22px] tw:leading-[36px];
+}
+
+@utility body-2 {
+  @apply tw:text-[18px] tw:leading-[32px] tw:font-semibold;
+}
+
+@utility body-3 {
+  @apply tw:text-[16px] tw:leading-[28px] tw:tracking-[0.02em];
+}
+
+@utility base {
+  @apply tw:text-[16px] tw:leading-[24px] tw:font-medium tw:tracking-[0.03em];
+}
+
+@utility base-bold {
+  @apply tw:text-[16px] tw:leading-[24px] tw:font-bold;
+}
+
+@utility base-small {
+  @apply tw:text-[14px] tw:leading-[18px] tw:font-semibold tw:tracking-[0.03em];
+}
+
+@utility small-1 {
+  @apply tw:text-[14px] tw:leading-[18px] tw:font-semibold tw:tracking-[0.03em];
+}
+
+@utility small-2 {
+  @apply tw:text-[12px] tw:leading-[16px] tw:font-bold tw:tracking-[0.3em];
+}
+
+@utility small-compact {
+  @apply tw:text-[12px] tw:leading-[18px] tw:font-semibold tw:tracking-[0.03em];
+}
+
+@utility link-hl {
+  @apply tw:relative tw:z-[1] tw:p-2 tw:inline-block tw:hover:before:h-full;
+  @apply tw:before:content-[""] tw:before:absolute tw:before:z-[-1] tw:before:h-1;
+  &::before {
+    top: unset;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: all 0.3s ease;
+  }
+}
+/* END of Typography */
+
+/*START of Custom Button*/
+@utility inner-before {
+  @apply tw:before:g-7 tw:before:absolute tw:before:inset-0 tw:before:opacity-0 tw:before:transition-opacity tw:before:duration-500 tw:before:content-[''];
+}
+
+@utility glow-before {
+  @apply tw:before:g-8 tw:before:absolute tw:before:top-0 tw:before:left-2/5 tw:before:z-4 tw:before:h-0.5 tw:before:w-3/5 tw:before:opacity-0 tw:before:transition-all tw:before:duration-500 tw:before:content-[''] tw:group-hover:before:left-4 tw:group-hover:before:opacity-40;
+}
+
+@utility glow-after {
+  @apply tw:after:g-8 tw:after:absolute tw:after:bottom-0 tw:after:left-4 tw:after:z-4 tw:after:h-0.5 tw:after:w-7/20 tw:after:opacity-0 tw:after:transition-all tw:after:duration-500 tw:after:content-[''] tw:group-hover:after:left-3/5 tw:group-hover:after:opacity-40;
+}
+/*END of Custom Button*/
+
+@utility container {
+  @apply tw:mx-auto tw:max-w-[1252px] tw:px-16 tw:max-xl:px-10 tw:max-lg:px-6 tw:max-sm:px-4;
+}
+
+@utility caption {
+  @apply tw:small-2 tw:mb-5 tw:uppercase tw:text-p3;
+}
+
+@utility feature-after {
+  @apply tw:after:g-1 tw:after:absolute tw:after:top-0 tw:after:right-0 tw:after:h-full tw:after:w-1/2 tw:after:mix-blend-soft-light tw:after:content-[''] tw:max-md:after:hidden;
+}
+
+@utility flexcenter {
+  @apply tw:flex tw:justify-center tw:items-center;
+}
+
+@utility flexcentercol {
+  @apply tw:flexcenter tw:flex-col;
+}
+
+@utility mcol-* {
+  left: calc((--value(integer) - 1) * 3.5rem);
+}
+
+@utility mcoln-* {
+  right: calc((--value(integer) - 1) * 3.5rem);
+}
+
+@utility g-* {
+  background-image: --value(--g- *);
+}
+
+@utility gd-* {
+  background-image: --value(--gd- *);
+}

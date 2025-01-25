@@ -1,20 +1,15 @@
-import * as utils from '../tools/utils.js';
+import { getRankingData, processEJSData } from '../utils/index.js';
 
 class RankingController {
   // [GET] /ranking/
-  ranking(req, res, next) {
-    const { tasks, status, fail, ModifiedDate } = utils.getRankingData();
-
-    if (fail) {
-      res.redirect('/');
-      return;
-    }
+  index(req, res, next) {
+    const { tasks, status, fail, ModifiedDate } = getRankingData();
+    if (fail) res.redirect('/');
 
     res.render('ranking', {
-      ...utils.defaultEJS,
+      ...processEJSData(req),
       navStatus: 'ranking',
-      isAuth: utils.getAuthStatus(req),
-      user: utils.getAuthUser(req),
+      docSubTitle: 'Ranking',
       tasks,
       status,
       ModifiedDate,

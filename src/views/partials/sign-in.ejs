@@ -1,7 +1,33 @@
-<div class="container form-signin">
-  <form action="/users/auth" method="POST">
-    <input name="name" type="text" class="form-control" id="floatingInput" placeholder="Username" />
-    <input name="pass" type="password" class="form-control" id="floatingPassword" placeholder="Password" />
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-  </form>
+<div>
+  <div
+    class="tw:group tw:flexcentercol tw:cursor-pointer tw:font-bold tw:px-4 tw:py-2 tw:rounded-lg tw:border-2 tw:border-solid tw:text-white tw:border-white tw:hover:text-black tw:hover:bg-white tw:hover:border-s1 tw:hover:absolute tw:hover:top-2 tw:hover:right-0"
+  >
+    <a href="/auth/login" class="tw:!text-gray-200 tw:group-hover:!text-gray-800">
+      <span> Sign In </span>
+    </a>
+    <div class="tw:group-hover:flex tw:relative tw:hidden tw:justify-center tw:items-center tw:z-10 tw:w-32 tw:pt-2">
+      <form
+        action="/auth/login/password"
+        method="POST"
+        autocomplete="off"
+        class="tw:flexcentercol tw:gap-2 tw:[&_input]:!w-36"
+      >
+        <input required name="username" type="text" class="form-control" id="username-signin" placeholder="Username" />
+        <input
+          required
+          name="password"
+          type="password"
+          class="form-control"
+          id="password-signin"
+          placeholder="Password"
+        />
+        <button
+          class="tw:px-4 tw:py-2 tw:font-semibold tw:!rounded-lg tw:bg-sky-200 tw:text-sky-700 tw:hover:bg-sky-600 tw:hover:text-sky-200 tw:transition-all tw:duration-200"
+          type="submit"
+        >
+          Process
+        </button>
+      </form>
+    </div>
+  </div>
 </div>

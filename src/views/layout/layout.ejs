@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <%- include('../partials/meta/head') -%>
+  <body>
+    <div id="app">
+      <%- include('./header') -%>
+      <main>
+        <% if (typeof main !== 'undefined') { %>
+        <%- main %>
+        <% } %>
+      </main>
+      <%- include('./footer') -%>
+    </div>
+  </body>
+</html>
