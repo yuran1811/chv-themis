@@ -15,7 +15,7 @@
     "dev": "nodemon src/index.js",
     "tw": "npx tailwindcss -i public/css/index.css -o public/static/css/index.min.css -m",
     "tw:w": "yarn tw -w",
-    "zip": "zip -9 -r chv-themis.zip . -i \"node_modules/monaco-editor/min\" \"public/static/*\" \"src/*\" \"md/*\" \".env\" \".LICENSE\" \"run.cmd\" \"*.json\" \"*.md\"",
+    "zip": "zip -9 -r chv-themis.zip . -x \"node_modules/*\" \"resources/*\" \".github/*\" \"db/scripts/*\" \"db/*.db\" \"md/*\" -i \"public/static/*\" \"src/*\" \"*.json\" \".env\" \"yarn.lock\" ",
     "build": "yarn tw"
   },
   "devDependencies": {
