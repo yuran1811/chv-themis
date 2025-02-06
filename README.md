@@ -4,6 +4,14 @@
   <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="400" />
 </p>
 
+<p align="center">
+  <img alt="Stars" src="https://badgen.net/github/stars/yuran1811/chv-themis">
+  <img alt="Forks" src="https://badgen.net/github/forks/yuran1811/chv-themis">
+  <img alt="Issues" src="https://badgen.net/github/issues/yuran1811/chv-themis">
+  <img alt="Commits" src="https://badgen.net/github/commits/yuran1811/chv-themis">
+  <img alt="Code Size" src="https://img.shields.io/github/languages/code-size/yuran1811/chv-themis">
+</p>
+
 ## Features
 
 - [x] Authentication using PassportJS (sign up, sign in, update password, admin privilege)
@@ -44,7 +52,6 @@ Make sure you have the following installed on your machine:
 
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/en)
-- [npm](https://www.npmjs.com/) (Node Package Manager)
 
 **Cloning the Repository**
 
